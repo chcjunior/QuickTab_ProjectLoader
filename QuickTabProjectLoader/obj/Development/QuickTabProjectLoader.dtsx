@@ -1,0 +1,3591 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="8/31/2017 4:27:23 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="HRMW3016994"
+  DTS:CreatorName="INTERNAL\chuck.collins"
+  DTS:Description="SSIS Package Description"
+  DTS:DTSID="{DCD8016C-1348-40D1-99DB-E50FDCE675C8}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:MaxErrorCount="0"
+  DTS:ObjectName="QuickTabProjectLoader"
+  DTS:VersionBuild="167"
+  DTS:VersionGUID="{285055E9-7F8D-4942-BAF7-C2AE64774076}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DatabaseOLEDB]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{7E1864C1-09C4-4B00-A7CD-A57905981DB0}"
+      DTS:ObjectName="DatabaseOLEDB">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=SQLTEST11;User ID=cdomii_admin;Initial Catalog=IRX_QuickTab_DB;Provider=SQLNCLI11.1;Persist Security Info=True;Auto Translate=false;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAqWE7w/uPukiLu2k6peigngAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAAAdk6ZCl3WJYFQz9vDmIVpuAAAAAASAAACgAAAAEAAAACcRiNZdCK4cgN5Vji4ZFxYYAAAAozjd1JiOkPs+ytZTIacxhldN8oJmenCDFAAAAKGPDIIWuV3V+qte0r/5HfaK/hFf</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[ExcelConnectionManager]"
+      DTS:CreationName="EXCEL"
+      DTS:DelayValidation="True"
+      DTS:DTSID="{E4BEB6D4-F027-4165-A751-68FB3AA1AEF6}"
+      DTS:ObjectName="ExcelConnectionManager">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">"Provider=Microsoft.ACE.OLEDB.10.0;Data Source=" +  @[User::ExcelFullFileName] + ";Extended Properties=\"" + @[User::ExcelFileVersion] + "\""</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.10.0;Data Source=\\SQLTEST11\QuickTab\;Extended Properties=&quot;&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{22C54F7C-E6F5-4ACA-B568-A2D01938177D}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="Counter">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{60F7DB49-CFB1-4921-931F-9918254E7B67}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::ExcelPath] + &quot;FailedProcessed&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ExcelFailedProcessedPath">
+      <DTS:VariableValue
+        DTS:DataType="8">\\SQLTEST11\QuickTab\FailedProcessed</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{C536C593-A7D8-43C1-B4DF-73BBB1A3AE39}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ExcelFileExtension">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{18D1FD82-9F1F-4BD4-BA7A-D74529F179F1}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ExcelFileName">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{6B7C624E-51A9-4349-9995-7D604D421464}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ExcelFileVersion">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{6A839D75-6D18-4532-AA7F-0106E567C981}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::ExcelPath] + @[User::ExcelFileName]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ExcelFullFileName">
+      <DTS:VariableValue
+        DTS:DataType="8">\\SQLTEST11\QuickTab\</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E704C51F-3398-4E40-99DF-5CECDF08CB22}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ExcelPath">
+      <DTS:VariableValue
+        DTS:DataType="8">\\SQLTEST11\QuickTab\</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{32767973-97E0-4DBF-AB8F-D493D5F87BF0}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::ExcelPath] + &quot;Processed&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ExcelProcessedPath">
+      <DTS:VariableValue
+        DTS:DataType="8">\\SQLTEST11\QuickTab\Processed</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{D4D0F2E9-EA20-4F7B-81C9-691C04BA2FB7}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ForLoopVersion">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Foreach Loop Container"
+      DTS:CreationName="STOCK:FOREACHLOOP"
+      DTS:Description="Foreach Loop Container"
+      DTS:Disabled="True"
+      DTS:DTSID="{59F1EEA3-58F5-4FBB-B524-2E605DEE0819}"
+      DTS:ExecutableType="STOCK:FOREACHLOOP"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Foreach Loop Container">
+      <DTS:ForEachEnumerator
+        DTS:CreationName="Microsoft.ForEachFileEnumerator"
+        DTS:DTSID="{8488D905-3C98-4A51-BE82-D4006B94CA16}"
+        DTS:ObjectName="{8488D905-3C98-4A51-BE82-D4006B94CA16}">
+        <DTS:PropertyExpression
+          DTS:Name="Directory">@[User::ExcelPath]</DTS:PropertyExpression>
+        <DTS:ObjectData>
+          <ForEachFileEnumeratorProperties>
+            <FEFEProperty
+              Folder="\\SQLTEST11\QuickTab\" />
+            <FEFEProperty
+              FileSpec="*.*" />
+            <FEFEProperty
+              FileNameRetrievalType="1" />
+            <FEFEProperty
+              Recurse="0" />
+          </ForEachFileEnumeratorProperties>
+        </DTS:ObjectData>
+      </DTS:ForEachEnumerator>
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:DTSID="{419F5C85-80ED-4A0E-B5F9-2B95B222DC16}"
+          DTS:IncludeInDebugDump="2345"
+          DTS:Namespace="User"
+          DTS:ObjectName="ExcelVersion">
+          <DTS:VariableValue
+            DTS:DataType="8"
+            xml:space="preserve"></DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container\Get Excel Metadata"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{DB8824EA-1CA2-49CC-8CA4-814D47851452}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Get Excel Metadata"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Foreach Loop Container\Get Excel Metadata\Get Excel Metadata"
+                  componentClassID="Microsoft.ManagedComponentHost"
+                  contactInfo="Includes and runs custom script code. For example, apply a business rule that limits the range of valid values in an &quot;income&quot; column or add values in two columns and calculate the average of the sum.;Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;10"
+                  description="Includes and runs custom script code. For example, apply a business rule that limits the range of valid values in an &quot;income&quot; column or add values in two columns and calculate the average of the sum."
+                  name="Get Excel Metadata"
+                  version="10">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Stores the source code of the component"
+                      isArray="true"
+                      name="SourceCode"
+                      state="cdata">
+                      <arrayElements
+                        arrayElementCount="30">
+                        <arrayElement
+                          dataType="System.String"><![CDATA[My Project\Settings.Designer.vb]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA['------------------------------------------------------------------------------
+' <autogenerated>
+'     This code was generated by a tool.
+'
+'     Changes to this file may cause incorrect behavior and will be lost if
+'     the code is regenerated.
+' </autogenerated>
+'------------------------------------------------------------------------------
+
+Option Strict Off
+Option Explicit On
+
+
+
+Partial Friend NotInheritable Class MySettings
+    Inherits System.Configuration.ApplicationSettingsBase
+
+    Private Shared m_Value As MySettings
+
+    Private Shared m_SyncObject As Object = New Object
+
+    <System.Diagnostics.DebuggerNonUserCode()> _
+    Public Shared ReadOnly Property Value() As MySettings
+        Get
+            If (MySettings.m_Value Is Nothing) Then
+                System.Threading.Monitor.Enter(MySettings.m_SyncObject)
+                If (MySettings.m_Value Is Nothing) Then
+                    Try
+                        MySettings.m_Value = New MySettings
+                    Finally
+                        System.Threading.Monitor.Exit(MySettings.m_SyncObject)
+                    End Try
+                End If
+            End If
+            Return MySettings.m_Value
+        End Get
+    End Property
+End Class
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[SC_7f2ac8f74f474c12b49ec2b0450767fc.vbproj]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectTypeGuids>{30D016F9-3734-4E33-A861-5E7D899E18F3};{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AFA2AAF9-7394-434D-9DF9-E7B0A78EEED5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>My Project</AppDesignerFolder>
+    <RootNamespace>SC_7f2ac8f74f474c12b49ec2b0450767fc</RootNamespace>
+    <AssemblyName>SC_7f2ac8f74f474c12b49ec2b0450767fc</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>.\bin\Debug\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <OutputPath>.\bin\Release\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <!-- This sections specifies references for the project. -->
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.SqlServer.TxScript, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.DTSRuntimeWrap, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.DTSPipelineWrap, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.PipelineHost, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Compile Include="main.vb" />
+    <Compile Include="BufferWrapper.vb" />
+    <Compile Include="ComponentWrapper.vb" />
+  </ItemGroup>
+  <!-- Visual Basic supports Importing namespaces (equivalent to using statements in C#).-->
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="My Project\" />
+    <Compile Include="My Project\AssemblyInfo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <!-- Include the build rules for a VB project.-->
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <!-- This section defines VSTA properties that describe the host-changable project properties. -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{30D016F9-3734-4E33-A861-5E7D899E18F3}">
+        <ProjectProperties HostName="VSTAHostName" HostPackage="{B3A685AA-7EAF-4BC6-9940-57959FA5AC07}" ApplicationType="usd" Language="vb" TemplatesPath="" />
+        <Host Name="SSIS_SC130" />
+        <ProjectClient>
+          <HostIdentifier>SSIS_SC130</HostIdentifier>
+        </ProjectClient>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[ComponentWrapper.vb]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[' THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT!
+' Microsoft SQL Server Integration Services component wrapper
+' This module defines the base class for your component
+' THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT!
+
+Imports System
+Imports System.Data
+Imports Microsoft.SqlServer.Dts.Pipeline
+Imports Microsoft.SqlServer.Dts.Pipeline.Wrapper
+Imports Microsoft.SqlServer.Dts.Runtime.Wrapper
+
+<CLSCompliant(False)> _
+Public Class UserComponent
+    Inherits ScriptComponent
+
+    Public Connections As New Connections(Me)
+    Public Variables As New Variables(Me)
+
+    Public OutputBuffer As OutputBuffer
+
+    Public Overridable Sub FinishOutputs()
+    End Sub
+
+    Private Sub MarkOutputsFinished()
+
+        If OutputBuffer IsNot Nothing Then
+            OutputBuffer.SetEndOfRowset
+            OutputBuffer = Nothing
+        End If
+
+    End Sub
+
+    Public Overrides Sub PrimeOutput(ByVal Outputs As Integer, ByVal OutputIDs() As Integer, ByVal Buffers() As PipelineBuffer, ByVal OutputMap As OutputNameMap)
+
+        For I As Integer = 0 To Outputs - 1
+            If OutputIDs(I) = GetOutputID(OutputMap, "Output") Then
+                OutputBuffer = New OutputBuffer(Buffers(I), GetColumnIndexes(OutputIDs(I)), OutputMap)
+            End If
+        Next
+
+        CreateNewOutputRows()
+
+        FinishOutputs()
+        MarkOutputsFinished()
+
+    End Sub
+
+    Public Overridable Sub CreateNewOutputRows()
+    End Sub
+
+End Class
+
+<CLSCompliant(False)> _
+Public Class Connections
+
+    Dim ParentComponent As ScriptComponent
+
+    <CLSCompliant(False)> _
+    Public Sub New(ByVal Component As ScriptComponent)
+        ParentComponent = Component
+    End Sub
+
+    Public ReadOnly Property ConnectionManager() As IDTSConnectionManager100
+        Get
+            Return ParentComponent.ComponentMetaData.RuntimeConnectionCollection.GetRuntimeConnectionByName("ConnectionManager").ConnectionManager
+        End Get
+    End Property
+
+End Class
+
+<CLSCompliant(False)> _
+Public Class Variables
+
+    Dim ParentComponent As ScriptComponent
+
+    <CLSCompliant(False)> _
+    Public Sub New(ByVal Component As ScriptComponent)
+        ParentComponent = Component
+    End Sub
+
+    Public ReadOnly Property [ExcelFileVersion]() As String
+        Get
+            Return CType(ParentComponent.ReadOnlyVariables("ExcelFileVersion").GetValueWithContext(ScriptComponent.EvaluatorContext), String)
+        End Get
+    End Property
+
+    Public ReadOnly Property [ExcelFullFileName]() As String
+        Get
+            Return CType(ParentComponent.ReadOnlyVariables("ExcelFullFileName").GetValueWithContext(ScriptComponent.EvaluatorContext), String)
+        End Get
+    End Property
+
+End Class
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[My Project\Settings.settings]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)" GeneratedClassNamespace="" GeneratedClassName="MySettings">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[My Project\AssemblyInfo.vb]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Imports System
+Imports System.Reflection
+Imports System.Runtime.InteropServices
+
+' General Information about an assembly is controlled through the following 
+' set of attributes. Change these attribute values to modify the information
+' associated with an assembly.
+
+' Review the values of the assembly attributes
+
+<Assembly: AssemblyTitle("SC_7f2ac8f74f474c12b49ec2b0450767fc")> 
+<Assembly: AssemblyDescription("")> 
+<Assembly: AssemblyCompany("")> 
+<Assembly: AssemblyProduct("SC_7f2ac8f74f474c12b49ec2b0450767fc")> 
+<Assembly: AssemblyCopyright("Copyright @  2018")> 
+<Assembly: AssemblyTrademark("")> 
+<Assembly: CLSCompliant(True)> 
+
+<Assembly: ComVisible(False)> 
+
+'The following GUID is for the ID of the typelib if this project is exposed to COM
+<Assembly: Guid("43840546-a65d-4640-a565-4dd0df1dd428")> 
+
+' Version information for an assembly consists of the following four values:
+'
+'      Major Version
+'      Minor Version 
+'      Build Number
+'      Revision
+'
+' You can specify all the values or you can default the Build and Revision Numbers 
+' by using the '*' as shown below:
+' <Assembly: AssemblyVersion("1.0.*")>
+
+<Assembly: AssemblyVersion("1.0.0.0")> 
+<Assembly: AssemblyFileVersion("1.0.0.0")> 
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[main.vb]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[' Microsoft SQL Server Integration Services user script component
+' This is your new script component in Microsoft Visual Basic .NET
+' ScriptMain is the entrypoint class for script components
+
+Imports System
+Imports System.Data
+Imports System.Math
+Imports Microsoft.SqlServer.Dts.Pipeline.Wrapper
+Imports Microsoft.SqlServer.Dts.Runtime.Wrapper
+
+Imports System.Data.OleDb
+
+<Microsoft.SqlServer.Dts.Pipeline.SSISScriptComponentEntryPointAttribute>
+<CLSCompliant(False)>
+Public Class ScriptMain
+    Inherits UserComponent
+
+    Public Overrides Sub CreateNewOutputRows()
+        MsgBox("hey")
+
+        ' add a reference to System.Xml
+
+        Dim excelFullFileName As String = Me.Variables.ExcelFullFileName.ToString()
+        ''Dim strCn As String = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" + excelFilePath + ";Extended Properties=Excel 12.0"
+        Dim strCn As String = Me.Connections.ConnectionManager.ConnectionString
+        Dim dtTables As DataTable
+        Dim dtColumns As DataTable
+        Dim tableName As String
+
+        MsgBox(strCn)
+        Dim cn As OleDbConnection = New OleDbConnection(strCn)
+
+
+        cn.Open()
+        dtTables = cn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, Nothing)
+
+        For Each row As DataRow In dtTables.Rows
+            tableName = row("TABLE_NAME").ToString()
+            MsgBox(tableName)
+
+
+            dtColumns = cn.GetOleDbSchemaTable(OleDbSchemaGuid.Columns,
+                                 New Object() {Nothing, Nothing, tableName, Nothing})
+
+            For Each columnRow As DataRow In dtColumns.Rows
+                OutputBuffer.AddRow()
+                OutputBuffer.EXCELFULLFILENAME = excelFullFileName
+                OutputBuffer.TABLENAME = tableName
+                OutputBuffer.COLUMNNAME = columnRow("COLUMN_NAME").ToString()
+                OutputBuffer.DATATYPE = columnRow("DATA_TYPE").ToString()
+            Next
+        Next
+
+        cn.Close()
+        OutputBuffer.SetEndOfRowset()
+    End Sub
+
+End Class
+
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[BufferWrapper.vb]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[' THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT!
+' Microsoft SQL Server Integration Services buffer wrappers
+' This module defines classes for accessing data flow buffers
+' THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT!
+
+
+Option Strict Off   ' This allows usage of PipelineBuffer typed accessors.
+
+Imports System
+Imports System.Data
+Imports Microsoft.SqlServer.Dts.Pipeline
+Imports Microsoft.SqlServer.Dts.Pipeline.Wrapper
+
+<CLSCompliant(False)> _
+Public Class OutputBuffer
+    Inherits ScriptBuffer
+
+    Public Sub New(ByVal Buffer As PipelineBuffer, ByVal BufferColumnIndexes As Integer(), ByVal OutputMap As OutputNameMap)
+        MyBase.New(Buffer, BufferColumnIndexes, OutputMap)
+    End Sub
+
+    Public WriteOnly Property [DATATYPE]() As String
+        Set
+            Me(0) = Value
+        End Set
+    End Property
+    Public WriteOnly Property [DATATYPE_IsNull] As Boolean
+        Set
+            If (value)
+                SetNull(0)
+            Else
+                Throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.")
+            End If
+        End Set
+    End Property
+
+    Public WriteOnly Property [COLUMNNAME]() As String
+        Set
+            Me(1) = Value
+        End Set
+    End Property
+    Public WriteOnly Property [COLUMNNAME_IsNull] As Boolean
+        Set
+            If (value)
+                SetNull(1)
+            Else
+                Throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.")
+            End If
+        End Set
+    End Property
+
+    Public WriteOnly Property [TABLENAME]() As String
+        Set
+            Me(2) = Value
+        End Set
+    End Property
+    Public WriteOnly Property [TABLENAME_IsNull] As Boolean
+        Set
+            If (value)
+                SetNull(2)
+            Else
+                Throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.")
+            End If
+        End Set
+    End Property
+
+    Public WriteOnly Property [EXCELFULLFILENAME]() As String
+        Set
+            Me(3) = Value
+        End Set
+    End Property
+    Public WriteOnly Property [EXCELFULLFILENAME_IsNull] As Boolean
+        Set
+            If (value)
+                SetNull(3)
+            Else
+                Throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.")
+            End If
+        End Set
+    End Property
+
+    Public Overloads Sub AddRow()
+        MyBase.AddRow()
+    End Sub
+
+    Public Overloads Sub SetEndOfRowset()
+        MyBase.SetEndOfRowset()
+    End Sub
+
+    Public Overloads Function EndOfRowset() As Boolean
+        EndOfRowset = MyBase.EndOfRowset
+    End Function
+
+End Class
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Project]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF16LE]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+<c:Project xmlns:c="http://schemas.microsoft.com/codeprojectml/2010/08/main" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" runtimeVersion="3.0" schemaVersion="1.0">
+	<msb:PropertyGroup>
+		<msb:Language>msBuild</msb:Language>
+		<msb:CodeName>SC_7f2ac8f74f474c12b49ec2b0450767fc</msb:CodeName>
+		<msb:DisplayName>SC_7f2ac8f74f474c12b49ec2b0450767fc</msb:DisplayName>
+		<msb:ProjectId>{84E5B293-5D09-45D4-A0F4-29CE1DA35D06}</msb:ProjectId>
+	</msb:PropertyGroup>
+	<msb:ItemGroup>
+		<msb:Project Include="SC_7f2ac8f74f474c12b49ec2b0450767fc.vbproj"/>
+		<msb:File Include="My Project\AssemblyInfo.vb"/>
+		<msb:File Include="ComponentWrapper.vb"/>
+		<msb:File Include="My Project\Resources.resx"/>
+		<msb:File Include="My Project\Resources.Designer.vb"/>
+		<msb:File Include="My Project\Settings.settings"/>
+		<msb:File Include="BufferWrapper.vb"/>
+		<msb:File Include="main.vb"/>
+		<msb:File Include="My Project\Settings.Designer.vb"/>
+	</msb:ItemGroup>
+</c:Project>]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[My Project\Resources.resx]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+</root>]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[My Project\Resources.Designer.vb]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA['------------------------------------------------------------------------------
+' <autogenerated>
+'     This code was generated by a tool.
+'
+'     Changes to this file may cause incorrect behavior and will be lost if
+'     the code is regenerated.
+' </autogenerated>
+'------------------------------------------------------------------------------
+
+Option Strict Off
+Option Explicit On
+
+
+Namespace My.Resources
+    
+    '''<summary>
+    '''   A strongly-typed resource class, for looking up localized strings, etc.
+    '''</summary>
+    'This class was auto-generated by the Strongly Typed Resource Builder
+    'class via a tool like ResGen or Visual Studio.NET.
+    'To add or remove a member, edit your .ResX file then rerun ResGen
+    'with the /str option, or rebuild your VS project.
+    Class MyResources
+        
+        Private Shared _resMgr As System.Resources.ResourceManager
+        
+        Private Shared _resCulture As System.Globalization.CultureInfo
+        
+        Friend Sub New()
+            MyBase.New
+        End Sub
+        
+        '''<summary>
+        '''   Returns the cached ResourceManager instance used by this class.
+        '''</summary>
+        <System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)>  _
+        Public Shared ReadOnly Property ResourceManager() As System.Resources.ResourceManager
+            Get
+                If (_resMgr Is Nothing) Then
+                    Dim temp As System.Resources.ResourceManager = New System.Resources.ResourceManager("My.Resources.MyResources", GetType(MyResources).Assembly)
+                    _resMgr = temp
+                End If
+                Return _resMgr
+            End Get
+        End Property
+        
+        '''<summary>
+        '''   Overrides the current thread's CurrentUICulture property for all
+        '''   resource lookups using this strongly typed resource class.
+        '''</summary>
+        <System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)>  _
+        Public Shared Property Culture() As System.Globalization.CultureInfo
+            Get
+                Return _resCulture
+            End Get
+            Set
+                _resCulture = value
+            End Set
+        End Property
+    End Class
+End Namespace
+]]></arrayElement>
+                      </arrayElements>
+                    </property>
+                    <property
+                      dataType="System.String"
+                      description="Stores the binary representation of the component"
+                      isArray="true"
+                      name="BinaryCode"
+                      state="cdata">
+                      <arrayElements
+                        arrayElementCount="2">
+                        <arrayElement
+                          dataType="System.String"><![CDATA[SC_7f2ac8f74f474c12b49ec2b0450767fc.dll]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[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
+CioAABMwAQAUAAAABAAAEQKMBQAAGy0IKAEAACsKKwICCgYqIgP+FQUAABsqAAAAEzACACgAAAAF
+AAARAntQAAAKb1EAAAoKBowIAAAbLRIoAgAAKwoCe1AAAAoGb1IAAAoGKkoCKCIAAAoCc1MAAAp9
+UAAACioAQlNKQgEAAQAAAAAADAAAAHY0LjAuMzAzMTkAAAAABQBsAAAAgAsAACN+AADsCwAAgA0A
+ACNTdHJpbmdzAAAAAGwZAACUAQAAI1VTAAAbAAAQAAAAI0dVSUQAAAAQGwAAHAQAACNCbG9iAAAA
+AAAAAAIAAAFXFaIJCQ8AAAD6ATMAFgAAAQAAAEIAAAANAAAADgAAAC8AAAAVAAAAUwAAAD0AAAAF
+AAAABwAAABMAAAAUAAAACAAAAAEAAAAIAAAAAQAAAAIAAAADAAAAAgAAAAAAQwYBAAAAAAAGAMIE
+pAoGAGwFpAoGAJkD5QkPAEoLAAAGANoDfgcGAKUEfgcGAFMFfgcGAOIEfgcGAPsEfgcGACEEfgcG
+ABYF4QYGAMYDXgoGAEIDXgoGAG0EfgcGADwExgUKAGUDCgkKAC0DLQYKAK0DLQYOAPcCNAoOAJEJ
++AkGAFUE5QkOAPEDfQoOAAkEsQEGACgM4QYOAHcJNAoOAIoEsQEGAM4C4QYOAKgAAwYKAFAD7QYG
+AOQIxAoGAOwHXQcSACwFqgIGAP4F4QYWADMCUAEWAMIHcgEGAKIJwQsWADUNUAESAMYIqgIaALcI
+qgISAPgHqgISAHgMqgIeAGYAIgkKAAcDSAcGAHwD5QkGAEkC4QYGAHYNfgcOAHIHsQEOAE0MsQEO
+AG0CsQEGAPcF4QYWANsBcgEGAOYB4QYWALAHUAEGAD0C4QYGANIH4QYiAAEASgkiACoASgkiAE0A
+SgkeAH8AIgkeABoAIgmnAAUNAAAeAJAAIgkOALULfQoGAOgLpAoGANMJtQUGALwJ4QYAAAAA0gAA
+AAAAAQABAAAAAAA6B0sNTQABAAEAAAAAAI8JSw1RAAEAAgAAARAALwxLDWEAAQADAAAAAAAGC9UK
+YQAFAAgAAQAAAAoHjQEgAAcADAABAAAA0wiNAZkABwAOAAEAAABaDI0BpQAHABoAAQAAANQLjQFh
+AAoAHwABAAAAbAuNAWEACwAhAAABEACbC40BrQAMACQABQEAACYKAABhAA4AJwAFAQAAtwAAAGEA
+DgAuADEAgAiAATEAVwiIATEAawiQATEAmQiYAREAmgmgAREA6wKkAQYA1AuoAQYAbAusAQYA0wiw
+AQEAaAy0AQEAaAy0AREAigW5AREAIgy9ASEA5wxIAVAgAAAAAAYYxgkGAAEAWCAAAAAABhjGCQYA
+AQBgIAAAAAARGMwJwAEBAIogAAAAABMIggnEAQEAliAAAAAAEwgqB8kBAQCiIAAAAAATCHMJzgEB
+AK4gAAAAABMIFgrTAQEAuiAAAAAAAxjGCQYAAQDCIAAAAAAWCOAI2AEBAO4gAAAAABYI0wLdAQEA
+9SAAAAAAFgjfAuIBAQD9IAAAAAAGGMYJBgACAAghAAAAAMYCDgwGAAIAqCIAAAAABhjGCbUAAgCz
+IgAAAAAGCBoBEAAFAL0iAAAAAAYIswYVAAYA1CIAAAAABggLARAABwDeIgAAAAAGCJ0GFQAIAPUi
+AAAAAAYI5wAQAAkA/yIAAAAABghrBhUACgAWIwAAAAAGCPUAEAALACAjAAAAAAYIgAYVAAwANyMA
+AAAAhgA9DQYADQA/IwAAAACGADkMBgANAEgjAAAAAIYAPAyxAA0AXSMAAAAABhjGCQYADQB9IwAA
+AABGA/cLBgANAH8jAAAAAAEAxwEGAA0AnCMAAAAAxgLSDOgBDQB9IwAAAABGAw4MBgARAPUjAAAA
+AAYYxgn2AREABCQAAAAABgj0CPEAEgAlJAAAAAAGGMYJ9gESADQkAAAAAAYIFQeIABMAWiQAAAAA
+Bgh5AogAEwCAJAAAAAARGMwJwAETAJEkAAAAAAYYxgkGABMAnCQAAAAAFgiSBf0BEwD4JAAAAADG
+AqYLIAETAAYlAAAAAMYCEwIlARQADiUAAAAAgwDLAgICFAAaJQAAAADGAvUFiAAUACQlAAAAABEA
+PQEHAhQARCUAAAAAAQApAQ8CFQC6IAAAAAAGGMYJBgAWAFAlAAAAAAMI+gFKABYAhCUAAAAABhjG
+CQYAFgAAAAEArwUAAAEA2QgAAAIAdgsAAAMABggAAAEArwUAAAEArwUAAAEArwUAAAEArwUAAAEA
+rwUAAAEArwUAAAEArwUAAAEArwUAAAEA/QsAAAIA2wkAAAMA4AsAAAQABggAAAEAfgwAAAEAfgwA
+AAEA9gcAAAEACgIAAAEACgIJAMYJAQARAMYJBgAZAMYJCgApAMYJEAAxAMYJEAA5AMYJEABBAMYJ
+EABJAMYJEABRAMYJEABZAMYJFQBhAMYJFQBpAMYJEABxAMYJEAB5AMYJEACBAMYJGgCRAMYJIACp
+AMYJBgCxAMYJBgC5AMYJBgDRAMYJJgDpAMYJEAABAcYJBgBhAcYJBgCZAMYJBgChAMYJBgAMAMYJ
+BgAUAMYJBgAcAMYJBgAkAMYJBgAMAPoBSgAUAPoBSgAcAPoBSgAkAPoBSgDBAMYJBgDZAFsCTwDZ
+AHINVwDxAMYJXQB5AUQNfQCRAfUFiABRAeAFiAAZAcYJEAAZAegGBgCZAVkLjAAZAR8CkQARAQUM
+nACpAa4JogAhAYgMqAApAc8GrADBAPUFiACZAa0LjAAhAd4MsQCxASUDBgAZAR8DBgAxAcYJtQAx
+AdgGwQAxAccGAQC5AcYJEAAxAT0NBgAxATkMBgAxATwMsQBJAcYJBgBJAdsA0ABJAYoL2ABJAVwB
+3gDBAZAH5ADJAY8C6gDRAfQI8QBJAWAL9wDZAc8G/QBJASANBAHhAfEMCgH5AfUFEQEBAqYFFgFZ
+AcYJBgAJAnwJGwEJAkgMGwHBAKYLIAHBABMCJQERAusBMQE0AOcMSAE8AJIFSgA8AJwFXwE8AMYJ
+BgApAKsA1AMuAAsATQIuABMAVgIuABsAdQIuACMAfgIuACsApwIuADMApwIuADsAfgIuAEMArQIu
+AEsApwIuAFMAxAIuAFsApwIuAGMAygIuAGsA9AIuAHMAAQNAAIsASwNAAIMAUANDAHsAWQNDAIMA
+UANJAKsA5QNjAHsAWQNjAIMAUANpAKsA+QOAAIsASwODAJMASwODAJsASwODAHsAWQOJAKsABgSg
+AIsASwOpAIMAdQLAAIsASwPDALMASwPDAFMApwLJAIMAdQLgAIsASwPjAFMApwIDAVMApwIjAVMA
+pwJDAVMApwKDAYMAUAODAaMAcgOjAYMAUAOjAVsApwJJArsASwPgA1MApwIgBFMApwLgBIMAUAPg
+BIsASwMABYMAUAMABYsASwMgBYMAUAMgBYsASwNABYMAUANABYsASwNgBYsASwOABYsASwOgBYsA
+SwOgBYMAUAPABYsASwPgBYsASwPgBYMAUANlAMcAywApATwBBAABAAUABQAHAAcACQAPAAoAEAAL
+ABIADQATAAAAkQkXAgAAPAccAgAAdwkhAgAAKAomAgAA5AgrAgAA7wIwAgAAHgE1AgAAtwY5AgAA
+DwE1AgAAoQY5AgAA6wA1AgAAbwY5AgAA+QA1AgAAhAY5AgAA+Ag9AgAAGQc1AgAAfQI1AgAArwVD
+AgAA/gFIAgIABAADAAIABQAFAAIABgAHAAIABwAJAAIACQALAAIACgANAAEACwANAAEADwAPAAEA
+EAARAAEAEQATAAEAEgAVAAEAEwAXAAEAFAAZAAEAFQAbAAEAFgAdAAIAIAAfAAIAIgAhAAIAIwAj
+AAIAJgAlAAIALgAnAC4ANQA8AEMALgFBAVABVwEEgAAAAQAAAAAAAAAAAAAAAACNAQAABAAAAAAA
+AAAAAAAAZQGEAQAAAAAEAAAAAAAAAAAAAABlAeEGAAAAAAoAAAAAAAAAAAAAAG4BsQEAAAAADQAA
+AAAAAAAAAAAAdwGUDAAAAAAEAAAAAAAAAAAAAABlAVABAAAAAA0AAAAAAAAAAAAAAHcBsQwAAAAA
+DQAAAAAAAAAAAAAAdwEQCAAAAAANAAAAAAAAAAAAAAB3ATMIAAAAAAAAAAABAAAAEgsAAAwABAAN
+AAQAAAAQABoAJwEAABAAVwAnAQAAAABZACcBnwA3AZ8AWgEAAABJRFRTQ29tcG9uZW50TWV0YURh
+dGExMDAASURUU1ZhcmlhYmxlMTAwAElEVFNSdW50aW1lQ29ubmVjdGlvbkNvbGxlY3Rpb24xMDAA
+SURUU1J1bnRpbWVDb25uZWN0aW9uMTAwAElEVFNDb25uZWN0aW9uTWFuYWdlcjEwMABJRFRTVmFy
+aWFibGVzMTAwAElEVFNFdmFsdWF0b3JDb250ZXh0MTAwAENvbnRleHRWYWx1ZWAxAFRocmVhZFNh
+ZmVPYmplY3RQcm92aWRlcmAxADxNb2R1bGU+AEdldE91dHB1dElEAHNldF9UQUJMRU5BTUUAc2V0
+X0VYQ0VMRlVMTEZJTEVOQU1FAHNldF9DT0xVTU5OQU1FAHNldF9EQVRBVFlQRQBUAERpc3Bvc2Vf
+X0luc3RhbmNlX18AQ3JlYXRlX19JbnN0YW5jZV9fAFN5c3RlbS5EYXRhAGdldF9Db21wb25lbnRN
+ZXRhRGF0YQBTeXN0ZW0uRGF0YS5PbGVEYgBtc2NvcmxpYgBTQ183ZjJhYzhmNzRmNDc0YzEyYjQ5
+ZWMyYjA0NTA3NjdmYwBNaWNyb3NvZnQuVmlzdWFsQmFzaWMATWFya091dHB1dHNGaW5pc2hlZABP
+bGVEYlNjaGVtYUd1aWQAQ3JlYXRlSW5zdGFuY2UAZ2V0X0dldEluc3RhbmNlAGluc3RhbmNlAEdl
+dEhhc2hDb2RlAEdldE9sZURiU2NoZW1hVGFibGUARGF0YVRhYmxlAElEaXNwb3NhYmxlAFJ1bnRp
+bWVUeXBlSGFuZGxlAEdldFR5cGVGcm9tSGFuZGxlAE1zZ0JveFN0eWxlAGdldF9FeGNlbEZ1bGxG
+aWxlTmFtZQBHZXRSdW50aW1lQ29ubmVjdGlvbkJ5TmFtZQBNaWNyb3NvZnQuU3FsU2VydmVyLkR0
+cy5QaXBlbGluZQBHZXRUeXBlAGdldF9DdWx0dXJlAHNldF9DdWx0dXJlAF9yZXNDdWx0dXJlAEFw
+cGxpY2F0aW9uQmFzZQBBcHBsaWNhdGlvblNldHRpbmdzQmFzZQBDbG9zZQBEaXNwb3NlAEVkaXRv
+ckJyb3dzYWJsZVN0YXRlAEd1aWRBdHRyaWJ1dGUASGVscEtleXdvcmRBdHRyaWJ1dGUAR2VuZXJh
+dGVkQ29kZUF0dHJpYnV0ZQBEZWJ1Z2dlck5vblVzZXJDb2RlQXR0cmlidXRlAERlYnVnZ2FibGVB
+dHRyaWJ1dGUARWRpdG9yQnJvd3NhYmxlQXR0cmlidXRlAENvbVZpc2libGVBdHRyaWJ1dGUAQXNz
+ZW1ibHlUaXRsZUF0dHJpYnV0ZQBTdGFuZGFyZE1vZHVsZUF0dHJpYnV0ZQBIaWRlTW9kdWxlTmFt
+ZUF0dHJpYnV0ZQBBc3NlbWJseVRyYWRlbWFya0F0dHJpYnV0ZQBUYXJnZXRGcmFtZXdvcmtBdHRy
+aWJ1dGUARGVidWdnZXJIaWRkZW5BdHRyaWJ1dGUAQXNzZW1ibHlGaWxlVmVyc2lvbkF0dHJpYnV0
+ZQBNeUdyb3VwQ29sbGVjdGlvbkF0dHJpYnV0ZQBBc3NlbWJseURlc2NyaXB0aW9uQXR0cmlidXRl
+AENvbXBpbGF0aW9uUmVsYXhhdGlvbnNBdHRyaWJ1dGUAQXNzZW1ibHlQcm9kdWN0QXR0cmlidXRl
+AEFzc2VtYmx5Q29weXJpZ2h0QXR0cmlidXRlAENMU0NvbXBsaWFudEF0dHJpYnV0ZQBTU0lTU2Ny
+aXB0Q29tcG9uZW50RW50cnlQb2ludEF0dHJpYnV0ZQBBc3NlbWJseUNvbXBhbnlBdHRyaWJ1dGUA
+UnVudGltZUNvbXBhdGliaWxpdHlBdHRyaWJ1dGUAbV9WYWx1ZQBnZXRfVmFsdWUAc2V0X1ZhbHVl
+AEdldE9iamVjdFZhbHVlAFN5c3RlbS5UaHJlYWRpbmcAU3lzdGVtLlJ1bnRpbWUuVmVyc2lvbmlu
+ZwBnZXRfQ29ubmVjdGlvblN0cmluZwBUb1N0cmluZwBNYXRoAE1pY3Jvc29mdC5WaXN1YWxCYXNp
+Yy5NeVNlcnZpY2VzLkludGVybmFsAFN5c3RlbS5Db21wb25lbnRNb2RlbABTQ183ZjJhYzhmNzRm
+NDc0YzEyYjQ5ZWMyYjA0NTA3NjdmYy5kbGwAc2V0X1RBQkxFTkFNRV9Jc051bGwAc2V0X0VYQ0VM
+RlVMTEZJTEVOQU1FX0lzTnVsbABzZXRfQ09MVU1OTkFNRV9Jc051bGwAc2V0X0RBVEFUWVBFX0lz
+TnVsbABTZXROdWxsAGdldF9JdGVtAHNldF9JdGVtAFN5c3RlbQBPcGVuAFN5c3RlbS5Db21wb25l
+bnRNb2RlbC5EZXNpZ24AU2NyaXB0TWFpbgBnZXRfRXhjZWxGaWxlVmVyc2lvbgBnZXRfQXBwbGlj
+YXRpb24ATXlBcHBsaWNhdGlvbgBTeXN0ZW0uQ29uZmlndXJhdGlvbgBTeXN0ZW0uR2xvYmFsaXph
+dGlvbgBJbnRlcmFjdGlvbgBTeXN0ZW0uUmVmbGVjdGlvbgBnZXRfUnVudGltZUNvbm5lY3Rpb25D
+b2xsZWN0aW9uAERhdGFSb3dDb2xsZWN0aW9uAE9sZURiQ29ubmVjdGlvbgBJbnZhbGlkT3BlcmF0
+aW9uRXhjZXB0aW9uAEN1bHR1cmVJbmZvAE91dHB1dE5hbWVNYXAAT3V0cHV0TWFwAE1pY3Jvc29m
+dC5TcWxTZXJ2ZXIuRFRTUnVudGltZVdyYXAATWljcm9zb2Z0LlNxbFNlcnZlci5EVFNQaXBlbGlu
+ZVdyYXAAbV9BcHBPYmplY3RQcm92aWRlcgBtX1VzZXJPYmplY3RQcm92aWRlcgBtX0NvbXB1dGVy
+T2JqZWN0UHJvdmlkZXIAbV9NeVdlYlNlcnZpY2VzT2JqZWN0UHJvdmlkZXIAUGlwZWxpbmVCdWZm
+ZXIAU2NyaXB0QnVmZmVyAE91dHB1dEJ1ZmZlcgBnZXRfUmVzb3VyY2VNYW5hZ2VyAGdldF9Db25u
+ZWN0aW9uTWFuYWdlcgBTeXN0ZW0uQ29kZURvbS5Db21waWxlcgBNaWNyb3NvZnQuU3FsU2VydmVy
+LkR0cy5SdW50aW1lLldyYXBwZXIATWljcm9zb2Z0LlNxbFNlcnZlci5EdHMuUGlwZWxpbmUuV3Jh
+cHBlcgBnZXRfVXNlcgBFbnRlcgBnZXRfQ29tcHV0ZXIATXlDb21wdXRlcgBfcmVzTWdyAElFbnVt
+ZXJhdG9yAEdldEVudW1lcmF0b3IAQWN0aXZhdG9yAC5jdG9yAC5jY3RvcgBNb25pdG9yAE91dHB1
+dElEcwBTeXN0ZW0uRGlhZ25vc3RpY3MATWljcm9zb2Z0LlZpc3VhbEJhc2ljLkRldmljZXMAZ2V0
+X1dlYlNlcnZpY2VzAE15V2ViU2VydmljZXMATWljcm9zb2Z0LlZpc3VhbEJhc2ljLkFwcGxpY2F0
+aW9uU2VydmljZXMAU3lzdGVtLlJ1bnRpbWUuSW50ZXJvcFNlcnZpY2VzAE1pY3Jvc29mdC5WaXN1
+YWxCYXNpYy5Db21waWxlclNlcnZpY2VzAFN5c3RlbS5SdW50aW1lLkNvbXBpbGVyU2VydmljZXMA
+U3lzdGVtLlJlc291cmNlcwBTQ183ZjJhYzhmNzRmNDc0YzEyYjQ5ZWMyYjA0NTA3NjdmYy5NeS5S
+ZXNvdXJjZXMATXlSZXNvdXJjZXMAU0NfN2YyYWM4Zjc0ZjQ3NGMxMmI0OWVjMmIwNDUwNzY3ZmMu
+UmVzb3VyY2VzLnJlc291cmNlcwBEZWJ1Z2dpbmdNb2RlcwBUYWJsZXMAZ2V0X1JlYWRPbmx5VmFy
+aWFibGVzAEJ1ZmZlckNvbHVtbkluZGV4ZXMAR2V0Q29sdW1uSW5kZXhlcwBNeVNldHRpbmdzAEVx
+dWFscwBDb2x1bW5zAENvbnZlcnNpb25zAFN5c3RlbS5Db2xsZWN0aW9ucwBDb25uZWN0aW9ucwBC
+dWZmZXJzAFJ1bnRpbWVIZWxwZXJzAEZpbmlzaE91dHB1dHMAZ2V0X1Jvd3MAQ3JlYXRlTmV3T3V0
+cHV0Um93cwBtX1N5bmNPYmplY3QATXlQcm9qZWN0AFNldEVuZE9mUm93c2V0AEV4aXQATXNnQm94
+UmVzdWx0AFVzZXJDb21wb25lbnQAUGFyZW50Q29tcG9uZW50AFNjcmlwdENvbXBvbmVudABnZXRf
+Q3VycmVudABNaWNyb3NvZnQuU3FsU2VydmVyLlR4U2NyaXB0AE1pY3Jvc29mdC5TcWxTZXJ2ZXIu
+UGlwZWxpbmVIb3N0AFByaW1lT3V0cHV0AE1vdmVOZXh0AG1fQ29udGV4dABHZXRWYWx1ZVdpdGhD
+b250ZXh0AFNjcmlwdENvbXBvbmVudEV2YWxDb250ZXh0AGdldF9FdmFsdWF0b3JDb250ZXh0AERh
+dGFSb3cAQWRkUm93AE1zZ0JveABTQ183ZjJhYzhmNzRmNDc0YzEyYjQ5ZWMyYjA0NTA3NjdmYy5N
+eQBnZXRfQXNzZW1ibHkAAAAxTQB5AC4AUgBlAHMAbwB1AHIAYwBlAHMALgBNAHkAUgBlAHMAbwB1
+AHIAYwBlAHMAAAdoAGUAeQAAFVQAQQBCAEwARQBfAE4AQQBNAEUAABdDAE8ATABVAE0ATgBfAE4A
+QQBNAEUAABNEAEEAVABBAF8AVABZAFAARQAAgJtJAHMATgB1AGwAbAAgAHAAcgBvAHAAZQByAHQA
+eQAgAGMAYQBuAG4AbwB0ACAAYgBlACAAcwBlAHQAIAB0AG8AIABGAGEAbABzAGUALgAgAEEAcwBz
+AGkAZwBuACAAYQAgAHYAYQBsAHUAZQAgAHQAbwAgAHQAaABlACAAYwBvAGwAdQBtAG4AIABpAG4A
+cwB0AGUAYQBkAC4AAA1PAHUAdABwAHUAdAAAI0MAbwBuAG4AZQBjAHQAaQBvAG4ATQBhAG4AYQBn
+AGUAcgAAIUUAeABjAGUAbABGAGkAbABlAFYAZQByAHMAaQBvAG4AACNFAHgAYwBlAGwARgB1AGwA
+bABGAGkAbABlAE4AYQBtAGUAAAAA6OnorUtQPEeO90x12nGnIQAEIAEBCAMgAAEFIAEBEREEIAEB
+DgQgAQECBSACAQ4OBSABARFFByAEAQ4ODg4GFRI0ARIMBhUSNAESCAYVEjQBEmUGFRI0ARIwBCAA
+EwAHAAESbRGAtQUgABKAuQcgAgEOEoC5FwcJDg4SgIkSgIkOEoCNEoCREoCREoCVCgADEYDBHBGA
+xRwDIAAOBAYRgNEKIAISgIkRgNEdHAUgABKA1QUgABKAkQMgABwEIAEcDgMgAAILIAMBEoCdHQgS
+gKEFIAIBCBwDBwECBAcCCAgHAAIIEoChDgUgAR0ICAUgABKA4QUgABKA5QYgARKA6Q4FIAASgKkF
+IAASgO0GIAESgPEcBQAAEoD1BiABHBKA+QQAAQ4cBAABHBwEAAEBHAQgAQIcAyAACAQHAR4AAh4A
+BRABAB4ABAoBHgAEBwETAAYVEjQBEwAHBhUScQETAAYVEnEBEwACEwAECgETAAUgAQETAAi3elxW
+GTTgiQiwP19/EdUKOgiJhF3NgIDMkQcGFRI0ARIMBwYVEjQBEggHBhUSNAESZQcGFRI0ARIwAwYS
+eQMGEn0DBhIkAwYSKAMGEhwEBhKApQMGEiwCBhwDAAABBAAAEgwEAAASCAQAABJlBAAAEjAEAAAS
+eQQAABJ9BQABARJ9DSAEAQgdCB0SgJ0SgKEGIAEBEoClBAAAEiwEIAASbQcQAQEeAB4ABzABAQEQ
+HgAECAASDAQIABIIBAgAEmUECAASMAQIABJ5BAgAEn0DKAAOAygAAgUoABKAqQQIABIsBCgAEwAI
+AQAIAAAAAAAeAQABAFQCFldyYXBOb25FeGNlcHRpb25UaHJvd3MBCAEAAgAAAAAAKAEAI1NDXzdm
+MmFjOGY3NGY0NzRjMTJiNDllYzJiMDQ1MDc2N2ZjAAAFAQAAAAAWAQARQ29weXJpZ2h0IEAgIDIw
+MTgAAAUBAAEAACkBACQ0Mzg0MDU0Ni1hNjVkLTQ2NDAtYTU2NS00ZGQwZGYxZGQ0MjgAAAwBAAcx
+LjAuMC4wAABJAQAaLk5FVEZyYW1ld29yayxWZXJzaW9uPXY0LjUBAFQOFEZyYW1ld29ya0Rpc3Bs
+YXlOYW1lEi5ORVQgRnJhbWV3b3JrIDQuNQQBAAAACAEAAQAAAAAAGAEACk15VGVtcGxhdGUIMTEu
+MC4wLjAAAGEBADRTeXN0ZW0uV2ViLlNlcnZpY2VzLlByb3RvY29scy5Tb2FwSHR0cENsaWVudFBy
+b3RvY29sEkNyZWF0ZV9fSW5zdGFuY2VfXxNEaXNwb3NlX19JbnN0YW5jZV9fAAAAEAEAC015LkNv
+bXB1dGVyAAATAQAOTXkuQXBwbGljYXRpb24AAAwBAAdNeS5Vc2VyAAATAQAOTXkuV2ViU2Vydmlj
+ZXMAAAAAtAAAAM7K774BAAAAkQAAAGxTeXN0ZW0uUmVzb3VyY2VzLlJlc291cmNlUmVhZGVyLCBt
+c2NvcmxpYiwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2Vu
+PWI3N2E1YzU2MTkzNGUwODkjU3lzdGVtLlJlc291cmNlcy5SdW50aW1lUmVzb3VyY2VTZXQCAAAA
+AAAAAAAAAABQQURQQURQtAAAAKRFAAAAAAAAAAAAAL5FAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AACwRQAAAAAAAAAAAAAAAF9Db3JEbGxNYWluAG1zY29yZWUuZGxsAAAAAAD/JQAgABAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAQAAAA
+GAAAgAAAAAAAAAAAAAAAAAAAAQABAAAAMAAAgAAAAAAAAAAAAAAAAAAAAQAAAAAASAAAAFhgAADs
+AwAAAAAAAAAAAADsAzQAAABWAFMAXwBWAEUAUgBTAEkATwBOAF8ASQBOAEYATwAAAAAAvQTv/gAA
+AQAAAAEAAAAAAAAAAQAAAAAAPwAAAAAAAAAEAAAAAgAAAAAAAAAAAAAAAAAAAEQAAAABAFYAYQBy
+AEYAaQBsAGUASQBuAGYAbwAAAAAAJAAEAAAAVAByAGEAbgBzAGwAYQB0AGkAbwBuAAAAAAAAALAE
+TAMAAAEAUwB0AHIAaQBuAGcARgBpAGwAZQBJAG4AZgBvAAAAKAMAAAEAMAAwADAAMAAwADQAYgAw
+AAAAGgABAAEAQwBvAG0AbQBlAG4AdABzAAAAAAAAACIAAQABAEMAbwBtAHAAYQBuAHkATgBhAG0A
+ZQAAAAAAAAAAAHAAJAABAEYAaQBsAGUARABlAHMAYwByAGkAcAB0AGkAbwBuAAAAAABTAEMAXwA3
+AGYAMgBhAGMAOABmADcANABmADQANwA0AGMAMQAyAGIANAA5AGUAYwAyAGIAMAA0ADUAMAA3ADYA
+NwBmAGMAAAAwAAgAAQBGAGkAbABlAFYAZQByAHMAaQBvAG4AAAAAADEALgAwAC4AMAAuADAAAABw
+ACgAAQBJAG4AdABlAHIAbgBhAGwATgBhAG0AZQAAAFMAQwBfADcAZgAyAGEAYwA4AGYANwA0AGYA
+NAA3ADQAYwAxADIAYgA0ADkAZQBjADIAYgAwADQANQAwADcANgA3AGYAYwAuAGQAbABsAAAASAAS
+AAEATABlAGcAYQBsAEMAbwBwAHkAcgBpAGcAaAB0AAAAQwBvAHAAeQByAGkAZwBoAHQAIABAACAA
+IAAyADAAMQA4AAAAKgABAAEATABlAGcAYQBsAFQAcgBhAGQAZQBtAGEAcgBrAHMAAAAAAAAAAAB4
+ACgAAQBPAHIAaQBnAGkAbgBhAGwARgBpAGwAZQBuAGEAbQBlAAAAUwBDAF8ANwBmADIAYQBjADgA
+ZgA3ADQAZgA0ADcANABjADEAMgBiADQAOQBlAGMAMgBiADAANAA1ADAANwA2ADcAZgBjAC4AZABs
+AGwAAABoACQAAQBQAHIAbwBkAHUAYwB0AE4AYQBtAGUAAAAAAFMAQwBfADcAZgAyAGEAYwA4AGYA
+NwA0AGYANAA3ADQAYwAxADIAYgA0ADkAZQBjADIAYgAwADQANQAwADcANgA3AGYAYwAAADQACAAB
+AFAAcgBvAGQAdQBjAHQAVgBlAHIAcwBpAG8AbgAAADEALgAwAC4AMAAuADAAAAA4AAgAAQBBAHMA
+cwBlAG0AYgBsAHkAIABWAGUAcgBzAGkAbwBuAAAAMQAuADAALgAwAC4AMAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAMAAAA0DUAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
+                      </arrayElements>
+                    </property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the Microsoft Visual Studio Tools for Applications project. Project names must be unique within a package."
+                      name="VSTAProjectName"
+                      typeConverter="NOTBROWSABLE">SC_7f2ac8f74f474c12b49ec2b0450767fc</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the programming language used by the script."
+                      name="ScriptLanguage"
+                      typeConverter="Microsoft.SqlServer.VSTAHosting.ScriptingLanguages">VisualBasic</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a comma-separated list of read-only variables."
+                      name="ReadOnlyVariables"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ScriptUIVariablePickerDlg">User::ExcelFileVersion,User::ExcelFullFileName</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a comma-separated list of read/write variables."
+                      name="ReadWriteVariables"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ScriptUIWriteableVariablePickerDlg"></property>
+                    <property
+                      dataType="System.String"
+                      description="List of breakpoints present on the script."
+                      isArray="true"
+                      name="BreakpointCollection"
+                      typeConverter="NOTBROWSABLE">
+                      <arrayElements
+                        arrayElementCount="0" />
+                    </property>
+                    <property
+                      dataType="System.String"
+                      description="Checksum to match component metedata against compiled codes."
+                      name="MetadataChecksum"
+                      typeConverter="NOTBROWSABLE">2ec8f10b59b99b4e51ccd167301e7424</property>
+                    <property
+                      dataType="System.String"
+                      description="Checksum to match component metedata against compiled codes."
+                      name="MetadataShaChecksum"
+                      typeConverter="NOTBROWSABLE">4bfb5773082029d5c0b64e7b05db976bc3b96bbd</property>
+                    <property
+                      dataType="System.String"
+                      name="UserComponentTypeName">Microsoft.ScriptComponentHost</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Loop Container\Get Excel Metadata\Get Excel Metadata.Connections[ConnectionManager]"
+                      connectionManagerID="Package.ConnectionManagers[ExcelConnectionManager]"
+                      connectionManagerRefId="Package.ConnectionManagers[ExcelConnectionManager]"
+                      name="ConnectionManager" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Foreach Loop Container\Get Excel Metadata\Get Excel Metadata.Outputs[Output]"
+                      hasSideEffects="true"
+                      name="Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Get Excel Metadata\Get Excel Metadata.Outputs[Output].Columns[DATATYPE]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Get Excel Metadata\Get Excel Metadata.Outputs[Output].Columns[DATATYPE]"
+                          name="DATATYPE" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Get Excel Metadata\Get Excel Metadata.Outputs[Output].Columns[COLUMNNAME]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Get Excel Metadata\Get Excel Metadata.Outputs[Output].Columns[COLUMNNAME]"
+                          name="COLUMNNAME" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Get Excel Metadata\Get Excel Metadata.Outputs[Output].Columns[TABLENAME]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container\Get Excel Metadata\Get Excel Metadata.Outputs[Output].Columns[TABLENAME]"
+                          name="TABLENAME" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Get Excel Metadata\Get Excel Metadata.Outputs[Output].Columns[EXCELFULLFILENAME]"
+                          dataType="wstr"
+                          length="256"
+                          lineageId="Package\Foreach Loop Container\Get Excel Metadata\Get Excel Metadata.Outputs[Output].Columns[EXCELFULLFILENAME]"
+                          name="EXCELFULLFILENAME" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Foreach Loop Container\Get Excel Metadata\OLE DB Destination"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE DB Destination"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[QuickTab].[stg_ExcelMetadata]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Loop Container\Get Excel Metadata\OLE DB Destination.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[DatabaseOLEDB]"
+                      connectionManagerRefId="Package.ConnectionManagers[DatabaseOLEDB]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Foreach Loop Container\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DATATYPE]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="DATATYPE"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DATATYPE]"
+                          lineageId="Package\Foreach Loop Container\Get Excel Metadata\Get Excel Metadata.Outputs[Output].Columns[DATATYPE]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[COLUMNNAME]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="COLUMNNAME"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[COLUMNNAME]"
+                          lineageId="Package\Foreach Loop Container\Get Excel Metadata\Get Excel Metadata.Outputs[Output].Columns[COLUMNNAME]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[TABLENAME]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="TABLENAME"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TABLENAME]"
+                          lineageId="Package\Foreach Loop Container\Get Excel Metadata\Get Excel Metadata.Outputs[Output].Columns[TABLENAME]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[EXCELFULLFILENAME]"
+                          cachedDataType="wstr"
+                          cachedLength="256"
+                          cachedName="EXCELFULLFILENAME"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[EXCELFILEPATH]"
+                          lineageId="Package\Foreach Loop Container\Get Excel Metadata\Get Excel Metadata.Outputs[Output].Columns[EXCELFULLFILENAME]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[EXCELFILEPATH]"
+                          dataType="wstr"
+                          length="512"
+                          name="EXCELFILEPATH" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TABLENAME]"
+                          dataType="wstr"
+                          length="512"
+                          name="TABLENAME" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[COLUMNNAME]"
+                          dataType="wstr"
+                          length="512"
+                          name="COLUMNNAME" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DATATYPE]"
+                          dataType="wstr"
+                          length="512"
+                          name="DATATYPE" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Foreach Loop Container\Get Excel Metadata\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Foreach Loop Container\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Get Excel Metadata\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Get Excel Metadata\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Get Excel Metadata\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Get Excel Metadata\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Foreach Loop Container\Get Excel Metadata.Paths[Output]"
+                  endId="Package\Foreach Loop Container\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  name="Output"
+                  startId="Package\Foreach Loop Container\Get Excel Metadata\Get Excel Metadata.Outputs[Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container\Get File Extension"
+          DTS:CreationName="Microsoft.ExpressionTask"
+          DTS:Description="Expression Task"
+          DTS:DTSID="{6F3BB277-AACC-4363-AE8B-5112ED9360BA}"
+          DTS:ExecutableType="Microsoft.ExpressionTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Get File Extension"
+          DTS:TaskContact="Expression Task;Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <ExpressionTask
+              Expression="@[User::ExcelFileExtension] = REVERSE(SUBSTRING(REVERSE(@[User::ExcelFileName]), 1, FINDSTRING(REVERSE(@[User::ExcelFileName]), &quot;.&quot;, 1) ))" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container\Get Next Excel File"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:Disabled="True"
+          DTS:DTSID="{27792740-759D-4077-86E5-34752AE7F8AA}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Get Next Excel File"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{7E1864C1-09C4-4B00-A7CD-A57905981DB0}"
+              SQLTask:SqlStatementSource="IF OBJECT_ID('tempdb..#DirectoryTree') IS NOT NULL&#xA;      DROP TABLE #DirectoryTree;&#xA;&#xA;CREATE TABLE #DirectoryTree (&#xA;       id int IDENTITY(1,1)&#xA;      ,subdirectory nvarchar(512)&#xA;      ,depth int&#xA;      ,isfile bit);&#xA;&#xA;INSERT #DirectoryTree (subdirectory,depth,isfile)&#xA;EXEC master.sys.xp_dirtree ?,1,1;&#xA;&#xA;SELECT TOP 1 subdirectory FileName, &#x9;&#x9;&#x9;&#x9;&#xA;             REVERSE(SUBSTRING(REVERSE(subdirectory), 1, CHARINDEX('.', REVERSE(subdirectory)))) AS Version  &#xA;FROM  #DirectoryTree&#xA;WHERE isfile = 1 AND (RIGHT(subdirectory,5) = '.xlsx' OR RIGHT(subdirectory,4) = '.xls')"
+              SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="FileName"
+                SQLTask:DtsVariableName="User::ExcelFileName" />
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="Version"
+                SQLTask:DtsVariableName="User::ExcelVersion" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::ExcelPath"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="130"
+                SQLTask:ParameterSize="100" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container\Move Failed File"
+          DTS:CreationName="Microsoft.FileSystemTask"
+          DTS:Description="File System Task"
+          DTS:DTSID="{de34030d-7a2c-4f9f-a780-942a288139b7}"
+          DTS:ExecutableType="Microsoft.FileSystemTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Move Failed File"
+          DTS:TaskContact="File System Task;Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <FileSystemData
+              TaskOperationType="MoveFile"
+              TaskSourcePath="User::ExcelFullFileName"
+              TaskIsSourceVariable="True"
+              TaskDestinationPath="User::ExcelFailedProcessedPath"
+              TaskIsDestinationVariable="True" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container\Move File"
+          DTS:CreationName="Microsoft.FileSystemTask"
+          DTS:Description="File System Task"
+          DTS:DTSID="{1917E6B1-2A93-4273-BE72-49B7F34D085A}"
+          DTS:ExecutableType="Microsoft.FileSystemTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Move File"
+          DTS:TaskContact="File System Task;Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <FileSystemData
+              TaskOperationType="MoveFile"
+              TaskSourcePath="User::ExcelFullFileName"
+              TaskIsSourceVariable="True"
+              TaskDestinationPath="User::ExcelProcessedPath"
+              TaskIsDestinationVariable="True" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container\Truncate Staging Tables"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{E457CFDB-B881-4A47-AB33-37AA4DEEB8B9}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate Staging Tables"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{7E1864C1-09C4-4B00-A7CD-A57905981DB0}"
+              SQLTask:SqlStatementSource="TRUNCATE TABLE  QuickTab.stg_ExcelMetadata" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Foreach Loop Container.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{955CCD8B-2085-49B0-9F27-6539656B6C6F}"
+          DTS:From="Package\Foreach Loop Container\Truncate Staging Tables"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Foreach Loop Container\Get Next Excel File" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Foreach Loop Container.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{DED893FE-21A3-41AC-85F9-4CB345955D4E}"
+          DTS:From="Package\Foreach Loop Container\Get Next Excel File"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\Foreach Loop Container\Get File Extension" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Foreach Loop Container.PrecedenceConstraints[Constraint 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{28F287DC-1132-4541-A790-D33DFB0C2146}"
+          DTS:EvalOp="1"
+          DTS:Expression="@[User::ExcelFileExtension] ==&quot;.xlsx&quot; || @[User::ExcelFileExtension] ==&quot;.xls&quot;"
+          DTS:From="Package\Foreach Loop Container\Get File Extension"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 2"
+          DTS:To="Package\Foreach Loop Container\Get Excel Metadata" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Foreach Loop Container.PrecedenceConstraints[Constraint 3]"
+          DTS:CreationName=""
+          DTS:DTSID="{9C88027D-405C-491C-91BF-11D2A4950BC3}"
+          DTS:EvalOp="1"
+          DTS:Expression="@[User::ExcelFileExtension] !=&quot;.xlsx&quot; &amp;&amp; @[User::ExcelFileExtension]!=&quot;.xls&quot;"
+          DTS:From="Package\Foreach Loop Container\Get File Extension"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 3"
+          DTS:To="Package\Foreach Loop Container\Move Failed File" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Foreach Loop Container.PrecedenceConstraints[Constraint 4]"
+          DTS:CreationName=""
+          DTS:DTSID="{DAA43670-090B-48E7-8ABC-129B9C826C32}"
+          DTS:From="Package\Foreach Loop Container\Get Excel Metadata"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 4"
+          DTS:To="Package\Foreach Loop Container\Move File" />
+      </DTS:PrecedenceConstraints>
+      <DTS:ForEachVariableMappings>
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{74E06C3F-17E4-4234-B21F-7E356B65CE1D}"
+          DTS:ObjectName="{74E06C3F-17E4-4234-B21F-7E356B65CE1D}"
+          DTS:ValueIndex="0"
+          DTS:VariableName="User::ExcelFileName" />
+      </DTS:ForEachVariableMappings>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Foreach Loop Container 1"
+      DTS:CreationName="STOCK:FOREACHLOOP"
+      DTS:Description="Foreach Loop Container"
+      DTS:DTSID="{78BB8E87-1FD3-4B65-9147-7186384F95D2}"
+      DTS:ExecutableType="STOCK:FOREACHLOOP"
+      DTS:LocaleID="-1"
+      DTS:MaxErrorCount="1000"
+      DTS:ObjectName="Foreach Loop Container 1">
+      <DTS:ForEachEnumerator
+        DTS:CreationName="Microsoft.ForEachFileEnumerator"
+        DTS:DTSID="{D2E6115F-2E0F-405B-8ED3-5F9FEC1F93BD}"
+        DTS:ObjectName="{D2E6115F-2E0F-405B-8ED3-5F9FEC1F93BD}">
+        <DTS:PropertyExpression
+          DTS:Name="Directory">@[User::ExcelPath]</DTS:PropertyExpression>
+        <DTS:ObjectData>
+          <ForEachFileEnumeratorProperties>
+            <FEFEProperty
+              Folder="\\SQLTEST11\QuickTab\" />
+            <FEFEProperty
+              FileSpec="*.*" />
+            <FEFEProperty
+              FileNameRetrievalType="1" />
+            <FEFEProperty
+              Recurse="0" />
+          </ForEachFileEnumeratorProperties>
+        </DTS:ObjectData>
+      </DTS:ForEachEnumerator>
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container 1\Get Excel Metadata"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{13475364-72de-4a1c-bef4-290324f69c4f}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Get Excel Metadata"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:EventHandlers>
+            <DTS:EventHandler
+              DTS:refId="Package\Foreach Loop Container 1\Get Excel Metadata.EventHandlers[OnError]"
+              DTS:CreationName="OnError"
+              DTS:DTSID="{E8C31A81-79DB-48E3-9F9B-A37BDE925FB4}"
+              DTS:EventID="1342202368"
+              DTS:EventName="OnError"
+              DTS:LocaleID="-1">
+              <DTS:Variables>
+                <DTS:Variable
+                  DTS:CreationName=""
+                  DTS:Description="The propagate property of the event"
+                  DTS:DTSID="{6029F6C3-B8CC-4D88-A680-FE2EF585B924}"
+                  DTS:IncludeInDebugDump="6789"
+                  DTS:Namespace="System"
+                  DTS:ObjectName="Propagate">
+                  <DTS:VariableValue
+                    DTS:DataType="11">-1</DTS:VariableValue>
+                </DTS:Variable>
+              </DTS:Variables>
+              <DTS:Executables>
+                <DTS:Executable
+                  DTS:refId="Package\Foreach Loop Container 1\Get Excel Metadata.EventHandlers[OnError]\Move Failed File"
+                  DTS:CreationName="Microsoft.FileSystemTask"
+                  DTS:Description="File System Task"
+                  DTS:DTSID="{49478891-c5e2-47d0-b797-3241ec3d310f}"
+                  DTS:ExecutableType="Microsoft.FileSystemTask"
+                  DTS:LocaleID="-1"
+                  DTS:ObjectName="Move Failed File"
+                  DTS:TaskContact="File System Task;Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+                  <DTS:Variables />
+                  <DTS:ObjectData>
+                    <FileSystemData
+                      TaskOperationType="MoveFile"
+                      TaskSourcePath="User::ExcelFullFileName"
+                      TaskIsSourceVariable="True"
+                      TaskDestinationPath="User::ExcelFailedProcessedPath"
+                      TaskIsDestinationVariable="True" />
+                  </DTS:ObjectData>
+                </DTS:Executable>
+              </DTS:Executables>
+            </DTS:EventHandler>
+          </DTS:EventHandlers>
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Foreach Loop Container 1\Get Excel Metadata\Get Excel Metadata"
+                  componentClassID="Microsoft.ManagedComponentHost"
+                  contactInfo="Includes and runs custom script code. For example, apply a business rule that limits the range of valid values in an &quot;income&quot; column or add values in two columns and calculate the average of the sum.;Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;10"
+                  description="Includes and runs custom script code. For example, apply a business rule that limits the range of valid values in an &quot;income&quot; column or add values in two columns and calculate the average of the sum."
+                  name="Get Excel Metadata"
+                  version="10">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Stores the source code of the component"
+                      isArray="true"
+                      name="SourceCode"
+                      state="cdata">
+                      <arrayElements
+                        arrayElementCount="33">
+                        <arrayElement
+                          dataType="System.String"><![CDATA[My Project\Settings.Designer.vb]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA['------------------------------------------------------------------------------
+' <autogenerated>
+'     This code was generated by a tool.
+'
+'     Changes to this file may cause incorrect behavior and will be lost if
+'     the code is regenerated.
+' </autogenerated>
+'------------------------------------------------------------------------------
+
+Option Strict Off
+Option Explicit On
+
+
+
+Partial Friend NotInheritable Class MySettings
+    Inherits System.Configuration.ApplicationSettingsBase
+
+    Private Shared m_Value As MySettings
+
+    Private Shared m_SyncObject As Object = New Object
+
+    <System.Diagnostics.DebuggerNonUserCode()> _
+    Public Shared ReadOnly Property Value() As MySettings
+        Get
+            If (MySettings.m_Value Is Nothing) Then
+                System.Threading.Monitor.Enter(MySettings.m_SyncObject)
+                If (MySettings.m_Value Is Nothing) Then
+                    Try
+                        MySettings.m_Value = New MySettings
+                    Finally
+                        System.Threading.Monitor.Exit(MySettings.m_SyncObject)
+                    End Try
+                End If
+            End If
+            Return MySettings.m_Value
+        End Get
+    End Property
+End Class
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[SC_7f2ac8f74f474c12b49ec2b0450767fc.vbproj]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectTypeGuids>{30D016F9-3734-4E33-A861-5E7D899E18F3};{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AFA2AAF9-7394-434D-9DF9-E7B0A78EEED5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>My Project</AppDesignerFolder>
+    <RootNamespace>SC_7f2ac8f74f474c12b49ec2b0450767fc</RootNamespace>
+    <AssemblyName>SC_7f2ac8f74f474c12b49ec2b0450767fc</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>.\bin\Debug\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <OutputPath>.\bin\Release\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <!-- This sections specifies references for the project. -->
+  <ItemGroup>
+    <Reference Include="Microsoft.SqlServer.ManagedDTS, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\assembly\GAC_MSIL\Microsoft.SqlServer.ManagedDTS\10.0.0.0__89845dcd8080cc91\Microsoft.SqlServer.ManagedDTS.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.SqlServer.TxScript, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.DTSRuntimeWrap, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.DTSPipelineWrap, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.PipelineHost, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Compile Include="main.vb" />
+    <Compile Include="BufferWrapper.vb" />
+    <Compile Include="ComponentWrapper.vb" />
+  </ItemGroup>
+  <!-- Visual Basic supports Importing namespaces (equivalent to using statements in C#).-->
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="My Project\" />
+    <Compile Include="My Project\AssemblyInfo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <!-- Include the build rules for a VB project.-->
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <!-- This section defines VSTA properties that describe the host-changable project properties. -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{30D016F9-3734-4E33-A861-5E7D899E18F3}">
+        <ProjectProperties HostName="VSTAHostName" HostPackage="{B3A685AA-7EAF-4BC6-9940-57959FA5AC07}" ApplicationType="usd" Language="vb" TemplatesPath="" />
+        <Host Name="SSIS_SC130" />
+        <ProjectClient>
+          <HostIdentifier>SSIS_SC130</HostIdentifier>
+        </ProjectClient>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[ComponentWrapper.vb]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[' THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT!
+' Microsoft SQL Server Integration Services component wrapper
+' This module defines the base class for your component
+' THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT!
+
+Imports System
+Imports System.Data
+Imports Microsoft.SqlServer.Dts.Pipeline
+Imports Microsoft.SqlServer.Dts.Pipeline.Wrapper
+Imports Microsoft.SqlServer.Dts.Runtime.Wrapper
+
+<CLSCompliant(False)> _
+Public Class UserComponent
+    Inherits ScriptComponent
+
+    Public Connections As New Connections(Me)
+    Public Variables As New Variables(Me)
+
+    Public OutputBuffer As OutputBuffer
+
+    Public Overridable Sub FinishOutputs()
+    End Sub
+
+    Private Sub MarkOutputsFinished()
+
+        If OutputBuffer IsNot Nothing Then
+            OutputBuffer.SetEndOfRowset
+            OutputBuffer = Nothing
+        End If
+
+    End Sub
+
+    Public Overrides Sub PrimeOutput(ByVal Outputs As Integer, ByVal OutputIDs() As Integer, ByVal Buffers() As PipelineBuffer, ByVal OutputMap As OutputNameMap)
+
+        For I As Integer = 0 To Outputs - 1
+            If OutputIDs(I) = GetOutputID(OutputMap, "Output") Then
+                OutputBuffer = New OutputBuffer(Buffers(I), GetColumnIndexes(OutputIDs(I)), OutputMap)
+            End If
+        Next
+
+        CreateNewOutputRows()
+
+        FinishOutputs()
+        MarkOutputsFinished()
+
+    End Sub
+
+    Public Overridable Sub CreateNewOutputRows()
+    End Sub
+
+End Class
+
+<CLSCompliant(False)> _
+Public Class Connections
+
+    Dim ParentComponent As ScriptComponent
+
+    <CLSCompliant(False)> _
+    Public Sub New(ByVal Component As ScriptComponent)
+        ParentComponent = Component
+    End Sub
+
+    Public ReadOnly Property ConnectionManager() As IDTSConnectionManager100
+        Get
+            Return ParentComponent.ComponentMetaData.RuntimeConnectionCollection.GetRuntimeConnectionByName("ConnectionManager").ConnectionManager
+        End Get
+    End Property
+
+End Class
+
+<CLSCompliant(False)> _
+Public Class Variables
+
+    Dim ParentComponent As ScriptComponent
+
+    <CLSCompliant(False)> _
+    Public Sub New(ByVal Component As ScriptComponent)
+        ParentComponent = Component
+    End Sub
+
+    Public ReadOnly Property [ExcelFileVersion]() As String
+        Get
+            Return CType(ParentComponent.ReadOnlyVariables("ExcelFileVersion").GetValueWithContext(ScriptComponent.EvaluatorContext), String)
+        End Get
+    End Property
+
+    Public ReadOnly Property [ExcelFullFileName]() As String
+        Get
+            Return CType(ParentComponent.ReadOnlyVariables("ExcelFullFileName").GetValueWithContext(ScriptComponent.EvaluatorContext), String)
+        End Get
+    End Property
+
+End Class
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[My Project\Settings.settings]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)" GeneratedClassNamespace="" GeneratedClassName="MySettings">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[My Project\AssemblyInfo.vb]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Imports System
+Imports System.Reflection
+Imports System.Runtime.InteropServices
+
+' General Information about an assembly is controlled through the following 
+' set of attributes. Change these attribute values to modify the information
+' associated with an assembly.
+
+' Review the values of the assembly attributes
+
+<Assembly: AssemblyTitle("SC_7f2ac8f74f474c12b49ec2b0450767fc")> 
+<Assembly: AssemblyDescription("")> 
+<Assembly: AssemblyCompany("")> 
+<Assembly: AssemblyProduct("SC_7f2ac8f74f474c12b49ec2b0450767fc")> 
+<Assembly: AssemblyCopyright("Copyright @  2018")> 
+<Assembly: AssemblyTrademark("")> 
+<Assembly: CLSCompliant(True)> 
+
+<Assembly: ComVisible(False)> 
+
+'The following GUID is for the ID of the typelib if this project is exposed to COM
+<Assembly: Guid("43840546-a65d-4640-a565-4dd0df1dd428")> 
+
+' Version information for an assembly consists of the following four values:
+'
+'      Major Version
+'      Minor Version 
+'      Build Number
+'      Revision
+'
+' You can specify all the values or you can default the Build and Revision Numbers 
+' by using the '*' as shown below:
+' <Assembly: AssemblyVersion("1.0.*")>
+
+<Assembly: AssemblyVersion("1.0.0.0")> 
+<Assembly: AssemblyFileVersion("1.0.0.0")> 
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[main.vb]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[' Microsoft SQL Server Integration Services user script component
+' This is your new script component in Microsoft Visual Basic .NET
+' ScriptMain is the entrypoint class for script components
+
+Imports System
+Imports System.Data
+Imports System.Math
+Imports Microsoft.SqlServer.Dts.Pipeline.Wrapper
+Imports Microsoft.SqlServer.Dts.Runtime.Wrapper
+
+Imports System.Data.OleDb
+
+<Microsoft.SqlServer.Dts.Pipeline.SSISScriptComponentEntryPointAttribute>
+<CLSCompliant(False)>
+Public Class ScriptMain
+    Inherits UserComponent
+
+    Public Overrides Sub CreateNewOutputRows()
+        ' MsgBox("hey")
+
+        ' add a reference to System.Xml
+        Dim t_cnt As Integer = 0, c_cnt As Integer = 0, t_ord As String, c_ord As String
+        Dim excelFullFileName As String = Me.Variables.ExcelFullFileName.ToString()
+        Dim strCn As String = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source=" + excelFullFileName + ";Extended Properties=Excel 12.0"
+        'Dim strCn As String = Me.Connections.ConnectionManager.ConnectionString
+        Dim dtTables As DataTable, dtvTables As DataView
+        Dim dtColumns As DataTable, dtvColumns As DataView
+        Dim tableName As String
+
+        'MsgBox(strCn)
+        Dim cn As OleDbConnection = New OleDbConnection(strCn)
+
+        cn.Open()
+        dtTables = cn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, Nothing)
+
+        For Each row As DataRow In dtTables.Rows
+            tableName = row("TABLE_NAME").ToString()
+
+            dtColumns = cn.GetOleDbSchemaTable(OleDbSchemaGuid.Columns,
+                                 New Object() {Nothing, Nothing, tableName, Nothing})
+
+            If (tableName <> "_xlnm#_FilterDatabase" And tableName <> "_xlnm#Print_Titles") Then
+
+                t_cnt = t_cnt + 1
+
+                'MsgBox("tableName:" + tableName)
+                ' MsgBox("t_cnt:" + t_cnt.ToString())
+                'MsgBox("t_ord:" + t_ord.ToString())
+
+
+                For Each columnRow As DataRow In dtColumns.Rows
+                    c_cnt = c_cnt + 1
+                    'MsgBox("Column:" + columnRow("COLUMN_NAME").ToString())
+                    'MsgBox("c_cnt:" + c_cnt.ToString())
+
+                    OutputBuffer.AddRow()
+                    OutputBuffer.EXCELFULLFILENAME = excelFullFileName
+                    OutputBuffer.TABLENAME = tableName
+                    OutputBuffer.TABLEINDEX = t_cnt
+                    OutputBuffer.COLUMNNAME = columnRow("COLUMN_NAME").ToString()
+                    OutputBuffer.COLUMNINDEX = c_cnt
+                    OutputBuffer.DATATYPE = columnRow("DATA_TYPE").ToString()
+
+                Next
+            End If
+            c_cnt = 0
+        Next
+        t_cnt = 0
+
+        cn.Close()
+        OutputBuffer.SetEndOfRowset()
+
+    End Sub
+
+End Class]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[BufferWrapper.vb]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[' THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT!
+' Microsoft SQL Server Integration Services buffer wrappers
+' This module defines classes for accessing data flow buffers
+' THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT!
+
+
+Option Strict Off   ' This allows usage of PipelineBuffer typed accessors.
+
+Imports System
+Imports System.Data
+Imports Microsoft.SqlServer.Dts.Pipeline
+Imports Microsoft.SqlServer.Dts.Pipeline.Wrapper
+
+<CLSCompliant(False)> _
+Public Class OutputBuffer
+    Inherits ScriptBuffer
+
+    Public Sub New(ByVal Buffer As PipelineBuffer, ByVal BufferColumnIndexes As Integer(), ByVal OutputMap As OutputNameMap)
+        MyBase.New(Buffer, BufferColumnIndexes, OutputMap)
+    End Sub
+
+    Public WriteOnly Property [DATATYPE]() As String
+        Set
+            Me(0) = Value
+        End Set
+    End Property
+    Public WriteOnly Property [DATATYPE_IsNull] As Boolean
+        Set
+            If (value)
+                SetNull(0)
+            Else
+                Throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.")
+            End If
+        End Set
+    End Property
+
+    Public WriteOnly Property [COLUMNNAME]() As String
+        Set
+            Me(1) = Value
+        End Set
+    End Property
+    Public WriteOnly Property [COLUMNNAME_IsNull] As Boolean
+        Set
+            If (value)
+                SetNull(1)
+            Else
+                Throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.")
+            End If
+        End Set
+    End Property
+
+    Public WriteOnly Property [TABLENAME]() As String
+        Set
+            Me(2) = Value
+        End Set
+    End Property
+    Public WriteOnly Property [TABLENAME_IsNull] As Boolean
+        Set
+            If (value)
+                SetNull(2)
+            Else
+                Throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.")
+            End If
+        End Set
+    End Property
+
+    Public WriteOnly Property [EXCELFULLFILENAME]() As String
+        Set
+            Me(3) = Value
+        End Set
+    End Property
+    Public WriteOnly Property [EXCELFULLFILENAME_IsNull] As Boolean
+        Set
+            If (value)
+                SetNull(3)
+            Else
+                Throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.")
+            End If
+        End Set
+    End Property
+
+    Public WriteOnly Property [COLUMNINDEX]() As UInt16
+        Set
+            Me(4) = Value
+        End Set
+    End Property
+    Public WriteOnly Property [COLUMNINDEX_IsNull] As Boolean
+        Set
+            If (value)
+                SetNull(4)
+            Else
+                Throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.")
+            End If
+        End Set
+    End Property
+
+    Public WriteOnly Property [TABLEINDEX]() As UInt16
+        Set
+            Me(5) = Value
+        End Set
+    End Property
+    Public WriteOnly Property [TABLEINDEX_IsNull] As Boolean
+        Set
+            If (value)
+                SetNull(5)
+            Else
+                Throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.")
+            End If
+        End Set
+    End Property
+
+    Public Overloads Sub AddRow()
+        MyBase.AddRow()
+    End Sub
+
+    Public Overloads Sub SetEndOfRowset()
+        MyBase.SetEndOfRowset()
+    End Sub
+
+    Public Overloads Function EndOfRowset() As Boolean
+        EndOfRowset = MyBase.EndOfRowset
+    End Function
+
+End Class
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Project]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF16LE]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+<c:Project xmlns:c="http://schemas.microsoft.com/codeprojectml/2010/08/main" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" runtimeVersion="3.0" schemaVersion="1.0">
+	<msb:PropertyGroup>
+		<msb:Language>msBuild</msb:Language>
+		<msb:CodeName>SC_7f2ac8f74f474c12b49ec2b0450767fc</msb:CodeName>
+		<msb:DisplayName>SC_7f2ac8f74f474c12b49ec2b0450767fc</msb:DisplayName>
+		<msb:ProjectId>{84E5B293-5D09-45D4-A0F4-29CE1DA35D06}</msb:ProjectId>
+	</msb:PropertyGroup>
+	<msb:ItemGroup>
+		<msb:Project Include="SC_7f2ac8f74f474c12b49ec2b0450767fc.vbproj"/>
+		<msb:File Include="My Project\AssemblyInfo.vb"/>
+		<msb:File Include="ComponentWrapper.vb"/>
+		<msb:File Include="My Project\Resources.resx"/>
+		<msb:File Include="My Project\Resources.Designer.vb"/>
+		<msb:File Include="packages.config"/>
+		<msb:File Include="My Project\Settings.settings"/>
+		<msb:File Include="BufferWrapper.vb"/>
+		<msb:File Include="main.vb"/>
+		<msb:File Include="My Project\Settings.Designer.vb"/>
+	</msb:ItemGroup>
+</c:Project>]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[My Project\Resources.resx]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+</root>]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[My Project\Resources.Designer.vb]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA['------------------------------------------------------------------------------
+' <autogenerated>
+'     This code was generated by a tool.
+'
+'     Changes to this file may cause incorrect behavior and will be lost if
+'     the code is regenerated.
+' </autogenerated>
+'------------------------------------------------------------------------------
+
+Option Strict Off
+Option Explicit On
+
+
+Namespace My.Resources
+    
+    '''<summary>
+    '''   A strongly-typed resource class, for looking up localized strings, etc.
+    '''</summary>
+    'This class was auto-generated by the Strongly Typed Resource Builder
+    'class via a tool like ResGen or Visual Studio.NET.
+    'To add or remove a member, edit your .ResX file then rerun ResGen
+    'with the /str option, or rebuild your VS project.
+    Class MyResources
+        
+        Private Shared _resMgr As System.Resources.ResourceManager
+        
+        Private Shared _resCulture As System.Globalization.CultureInfo
+        
+        Friend Sub New()
+            MyBase.New
+        End Sub
+        
+        '''<summary>
+        '''   Returns the cached ResourceManager instance used by this class.
+        '''</summary>
+        <System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)>  _
+        Public Shared ReadOnly Property ResourceManager() As System.Resources.ResourceManager
+            Get
+                If (_resMgr Is Nothing) Then
+                    Dim temp As System.Resources.ResourceManager = New System.Resources.ResourceManager("My.Resources.MyResources", GetType(MyResources).Assembly)
+                    _resMgr = temp
+                End If
+                Return _resMgr
+            End Get
+        End Property
+        
+        '''<summary>
+        '''   Overrides the current thread's CurrentUICulture property for all
+        '''   resource lookups using this strongly typed resource class.
+        '''</summary>
+        <System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)>  _
+        Public Shared Property Culture() As System.Globalization.CultureInfo
+            Get
+                Return _resCulture
+            End Get
+            Set
+                _resCulture = value
+            End Set
+        End Property
+    End Class
+End Namespace
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[packages.config]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<packages>
+  <package id="MicrosoftSqlServerManagedDTS" version="4.0.12" targetFramework="net45" />
+</packages>]]></arrayElement>
+                      </arrayElements>
+                    </property>
+                    <property
+                      dataType="System.String"
+                      description="Stores the binary representation of the component"
+                      isArray="true"
+                      name="BinaryCode"
+                      state="cdata">
+                      <arrayElements
+                        arrayElementCount="2">
+                        <arrayElement
+                          dataType="System.String"><![CDATA[SC_7f2ac8f74f474c12b49ec2b0450767fc.dll]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[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
+GQC6IAAAAAAGGPoJBgAaAPAlAAAAAAMIIAJKABoAJCYAAAAABhj6CQYAGgAAAAEAyQUAAAEADQkA
+AAIAqgsAAAMAOggAAAEAyQUAAAEAyQUAAAEAyQUAAAEAyQUAAAEAyQUAAAEAyQUAAAEAyQUAAAEA
+yQUAAAEAyQUAAAEAyQUAAAEAyQUAAAEAyQUAAAEAOwwAAAIADwoAAAMAFAwAAAQAOggAAAEAtgwA
+AAEAtgwAAAEAKggAAAEAMAIAAAEAMAIJAPoJAQARAPoJBgAZAPoJCgApAPoJEAAxAPoJEAA5APoJ
+EABBAPoJEABJAPoJEABRAPoJEABZAPoJFQBhAPoJFQBpAPoJEABxAPoJEAB5APoJEACBAPoJGgCR
+APoJIACpAPoJBgCxAPoJBgC5APoJBgDRAPoJJgDpAPoJEAABAfoJBgBhAfoJBgCZAPoJBgChAPoJ
+BgAMAPoJBgAUAPoJBgAcAPoJBgAkAPoJBgAMACACSgAUACACSgAcACACSgAkACACSgDBAPoJBgDZ
+AIECTwDZAKMNVwDxAPoJXQB5AQgGfwB5AWAMgwAZAfoJEAAZASgHBgCBAY0LigAZAUUCjwARAUMM
+mgCRAeIJoAAhAcAMpgApAQ8HqgDBAAgGfwCBAeELigCZAfoFrwAhARYNtgChAT8DBgAZATkDBgAx
+AfoJugAxARgHxgAxAQcHAQCpAfoJEAAxAXUNBgAxAX4MBgAxAYEMtgBJAfoJBgBJAeIA1QBJAb4L
+3QBJAYIB4wC5AcQH6QDBAakC7wDJASgJ9gBJAZQL/ADRAQ8HAgFJAVgNCQHZASkNDwHxAQgGFgH5
+AcAFGwFZAfoJBgABArAJIAEBAo0MIAHBANoLJQHBADkCKgEJAhECNgE0AB8NTQE8AKwFSgA8ALYF
+ZAE8APoJBgApAKsA4gMuAAsAWwIuABMAZAIuABsAgwIuACMAjAIuACsAtQIuADMAtQIuADsAjAIu
+AEMAuwIuAEsAtQIuAFMA0gIuAFsAtQIuAGMA2AIuAGsAAgMuAHMADwNAAIsAWQNAAIMAXgNDAHsA
+ZwNDAIMAXgNJAKsA8wNjAHsAZwNjAIMAXgNpAKsABwSAAIsAWQODAJMAWQODAJsAWQODAHsAZwOJ
+AKsAFASgAIsAWQOpAIMAgwLAAIsAWQPDALMAWQPDAFMAtQLJAIMAgwLgAIsAWQPjAFMAtQIDAVMA
+tQIjAVMAtQJDAVMAtQKDAYMAXgODAaMAgAOjAYMAXgOjAVsAtQLJArsAWQNgBFMAtQKgBFMAtQJg
+BYMAXgNgBYsAWQOABYMAXgOABYsAWQOgBYMAXgOgBYsAWQPABYMAXgPABYsAWQPgBYsAWQMABosA
+WQMgBosAWQMgBoMAXgNABosAWQNgBosAWQNgBoMAXgNlAMwA0AAuAUEBBAABAAUABQAHAAcACQAT
+AAoAFAALABYADQAXAAAAxQkhAgAAfAcmAgAAqwkrAgAAXAowAgAAGAk1AgAACQM6AgAAJQE/AgAA
+ygZDAgAAFgE/AgAAtAZDAgAA8gA/AgAAggZDAgAAAAE/AgAAlwZDAgAAQwFHAgAA9AZDAgAANAFH
+AgAA3gZDAgAALAlLAgAAWQc/AgAAlwI/AgAAyQVRAgAAJAJWAgIABAADAAIABQAFAAIABgAHAAIA
+BwAJAAIACQALAAIACgANAAEACwANAAEADwAPAAEAEAARAAEAEQATAAEAEgAVAAEAEwAXAAEAFAAZ
+AAEAFQAbAAEAFgAdAAEAFwAfAAEAGAAhAAEAGQAjAAEAGgAlAAIAJAAnAAIAJgApAAIAJwArAAIA
+KgAtAAIAMgAvAC4ANQA8AEMAMwFGAVUBXAEEgAAAAQAAAAAAAAAAAAAAAACzAQAABAAAAAAAAAAA
+AAAAagGqAQAAAAAEAAAAAAAAAAAAAABqASEHAAAAAAoAAAAAAAAAAAAAAHMB1wEAAAAADQAAAAAA
+AAAAAAAAfAHMDAAAAAAEAAAAAAAAAAAAAABqAXYBAAAAAA0AAAAAAAAAAAAAAHwB6QwAAAAADQAA
+AAAAAAAAAAAAfAFECAAAAAANAAAAAAAAAAAAAAB8AWcIAAAAAAAAAAABAAAARgsAAAwABAANAAQA
+AAAQABoALgEAABAAXwAuAQAAAABhAC4BnwA8AZ8AXwEAAAAAAElEVFNDb21wb25lbnRNZXRhRGF0
+YTEwMABJRFRTVmFyaWFibGUxMDAASURUU1J1bnRpbWVDb25uZWN0aW9uQ29sbGVjdGlvbjEwMABJ
+RFRTUnVudGltZUNvbm5lY3Rpb24xMDAASURUU0Nvbm5lY3Rpb25NYW5hZ2VyMTAwAElEVFNWYXJp
+YWJsZXMxMDAASURUU0V2YWx1YXRvckNvbnRleHQxMDAAQ29udGV4dFZhbHVlYDEAVGhyZWFkU2Fm
+ZU9iamVjdFByb3ZpZGVyYDEAVUludDE2ADxNb2R1bGU+AEdldE91dHB1dElEAHNldF9UQUJMRU5B
+TUUAc2V0X0VYQ0VMRlVMTEZJTEVOQU1FAHNldF9DT0xVTU5OQU1FAHNldF9EQVRBVFlQRQBUAHNl
+dF9UQUJMRUlOREVYAHNldF9DT0xVTU5JTkRFWABEaXNwb3NlX19JbnN0YW5jZV9fAENyZWF0ZV9f
+SW5zdGFuY2VfXwBTeXN0ZW0uRGF0YQBnZXRfQ29tcG9uZW50TWV0YURhdGEAU3lzdGVtLkRhdGEu
+T2xlRGIAbXNjb3JsaWIAU0NfN2YyYWM4Zjc0ZjQ3NGMxMmI0OWVjMmIwNDUwNzY3ZmMATWljcm9z
+b2Z0LlZpc3VhbEJhc2ljAE1hcmtPdXRwdXRzRmluaXNoZWQAT2xlRGJTY2hlbWFHdWlkAENyZWF0
+ZUluc3RhbmNlAGdldF9HZXRJbnN0YW5jZQBpbnN0YW5jZQBHZXRIYXNoQ29kZQBHZXRPbGVEYlNj
+aGVtYVRhYmxlAERhdGFUYWJsZQBJRGlzcG9zYWJsZQBSdW50aW1lVHlwZUhhbmRsZQBHZXRUeXBl
+RnJvbUhhbmRsZQBnZXRfRXhjZWxGdWxsRmlsZU5hbWUAR2V0UnVudGltZUNvbm5lY3Rpb25CeU5h
+bWUATWljcm9zb2Z0LlNxbFNlcnZlci5EdHMuUGlwZWxpbmUAR2V0VHlwZQBnZXRfQ3VsdHVyZQBz
+ZXRfQ3VsdHVyZQBfcmVzQ3VsdHVyZQBBcHBsaWNhdGlvbkJhc2UAQXBwbGljYXRpb25TZXR0aW5n
+c0Jhc2UAQ2xvc2UARGlzcG9zZQBFZGl0b3JCcm93c2FibGVTdGF0ZQBHdWlkQXR0cmlidXRlAEhl
+bHBLZXl3b3JkQXR0cmlidXRlAEdlbmVyYXRlZENvZGVBdHRyaWJ1dGUARGVidWdnZXJOb25Vc2Vy
+Q29kZUF0dHJpYnV0ZQBEZWJ1Z2dhYmxlQXR0cmlidXRlAEVkaXRvckJyb3dzYWJsZUF0dHJpYnV0
+ZQBDb21WaXNpYmxlQXR0cmlidXRlAEFzc2VtYmx5VGl0bGVBdHRyaWJ1dGUAU3RhbmRhcmRNb2R1
+bGVBdHRyaWJ1dGUASGlkZU1vZHVsZU5hbWVBdHRyaWJ1dGUAQXNzZW1ibHlUcmFkZW1hcmtBdHRy
+aWJ1dGUAVGFyZ2V0RnJhbWV3b3JrQXR0cmlidXRlAERlYnVnZ2VySGlkZGVuQXR0cmlidXRlAEFz
+c2VtYmx5RmlsZVZlcnNpb25BdHRyaWJ1dGUATXlHcm91cENvbGxlY3Rpb25BdHRyaWJ1dGUAQXNz
+ZW1ibHlEZXNjcmlwdGlvbkF0dHJpYnV0ZQBDb21waWxhdGlvblJlbGF4YXRpb25zQXR0cmlidXRl
+AEFzc2VtYmx5UHJvZHVjdEF0dHJpYnV0ZQBBc3NlbWJseUNvcHlyaWdodEF0dHJpYnV0ZQBDTFND
+b21wbGlhbnRBdHRyaWJ1dGUAU1NJU1NjcmlwdENvbXBvbmVudEVudHJ5UG9pbnRBdHRyaWJ1dGUA
+QXNzZW1ibHlDb21wYW55QXR0cmlidXRlAFJ1bnRpbWVDb21wYXRpYmlsaXR5QXR0cmlidXRlAG1f
+VmFsdWUAZ2V0X1ZhbHVlAHNldF9WYWx1ZQBHZXRPYmplY3RWYWx1ZQBTeXN0ZW0uVGhyZWFkaW5n
+AFN5c3RlbS5SdW50aW1lLlZlcnNpb25pbmcAQ29tcGFyZVN0cmluZwBUb1N0cmluZwBNYXRoAE1p
+Y3Jvc29mdC5WaXN1YWxCYXNpYy5NeVNlcnZpY2VzLkludGVybmFsAFN5c3RlbS5Db21wb25lbnRN
+b2RlbABTQ183ZjJhYzhmNzRmNDc0YzEyYjQ5ZWMyYjA0NTA3NjdmYy5kbGwAc2V0X1RBQkxFTkFN
+RV9Jc051bGwAc2V0X0VYQ0VMRlVMTEZJTEVOQU1FX0lzTnVsbABzZXRfQ09MVU1OTkFNRV9Jc051
+bGwAc2V0X0RBVEFUWVBFX0lzTnVsbABzZXRfVEFCTEVJTkRFWF9Jc051bGwAc2V0X0NPTFVNTklO
+REVYX0lzTnVsbABTZXROdWxsAGdldF9JdGVtAHNldF9JdGVtAFN5c3RlbQBPcGVuAFN5c3RlbS5D
+b21wb25lbnRNb2RlbC5EZXNpZ24AU2NyaXB0TWFpbgBnZXRfRXhjZWxGaWxlVmVyc2lvbgBnZXRf
+QXBwbGljYXRpb24ATXlBcHBsaWNhdGlvbgBTeXN0ZW0uQ29uZmlndXJhdGlvbgBTeXN0ZW0uR2xv
+YmFsaXphdGlvbgBTeXN0ZW0uUmVmbGVjdGlvbgBnZXRfUnVudGltZUNvbm5lY3Rpb25Db2xsZWN0
+aW9uAERhdGFSb3dDb2xsZWN0aW9uAE9sZURiQ29ubmVjdGlvbgBJbnZhbGlkT3BlcmF0aW9uRXhj
+ZXB0aW9uAEN1bHR1cmVJbmZvAE91dHB1dE5hbWVNYXAAT3V0cHV0TWFwAE1pY3Jvc29mdC5TcWxT
+ZXJ2ZXIuRFRTUnVudGltZVdyYXAATWljcm9zb2Z0LlNxbFNlcnZlci5EVFNQaXBlbGluZVdyYXAA
+bV9BcHBPYmplY3RQcm92aWRlcgBtX1VzZXJPYmplY3RQcm92aWRlcgBtX0NvbXB1dGVyT2JqZWN0
+UHJvdmlkZXIAbV9NeVdlYlNlcnZpY2VzT2JqZWN0UHJvdmlkZXIAUGlwZWxpbmVCdWZmZXIAU2Ny
+aXB0QnVmZmVyAE91dHB1dEJ1ZmZlcgBnZXRfUmVzb3VyY2VNYW5hZ2VyAGdldF9Db25uZWN0aW9u
+TWFuYWdlcgBTeXN0ZW0uQ29kZURvbS5Db21waWxlcgBNaWNyb3NvZnQuU3FsU2VydmVyLkR0cy5S
+dW50aW1lLldyYXBwZXIATWljcm9zb2Z0LlNxbFNlcnZlci5EdHMuUGlwZWxpbmUuV3JhcHBlcgBn
+ZXRfVXNlcgBFbnRlcgBnZXRfQ29tcHV0ZXIATXlDb21wdXRlcgBfcmVzTWdyAElFbnVtZXJhdG9y
+AEdldEVudW1lcmF0b3IAQWN0aXZhdG9yAC5jdG9yAC5jY3RvcgBNb25pdG9yAE91dHB1dElEcwBT
+eXN0ZW0uRGlhZ25vc3RpY3MATWljcm9zb2Z0LlZpc3VhbEJhc2ljLkRldmljZXMAZ2V0X1dlYlNl
+cnZpY2VzAE15V2ViU2VydmljZXMATWljcm9zb2Z0LlZpc3VhbEJhc2ljLkFwcGxpY2F0aW9uU2Vy
+dmljZXMAU3lzdGVtLlJ1bnRpbWUuSW50ZXJvcFNlcnZpY2VzAE1pY3Jvc29mdC5WaXN1YWxCYXNp
+Yy5Db21waWxlclNlcnZpY2VzAFN5c3RlbS5SdW50aW1lLkNvbXBpbGVyU2VydmljZXMAU3lzdGVt
+LlJlc291cmNlcwBTQ183ZjJhYzhmNzRmNDc0YzEyYjQ5ZWMyYjA0NTA3NjdmYy5NeS5SZXNvdXJj
+ZXMATXlSZXNvdXJjZXMAU0NfN2YyYWM4Zjc0ZjQ3NGMxMmI0OWVjMmIwNDUwNzY3ZmMuUmVzb3Vy
+Y2VzLnJlc291cmNlcwBEZWJ1Z2dpbmdNb2RlcwBUYWJsZXMAZ2V0X1JlYWRPbmx5VmFyaWFibGVz
+AEJ1ZmZlckNvbHVtbkluZGV4ZXMAR2V0Q29sdW1uSW5kZXhlcwBNeVNldHRpbmdzAEVxdWFscwBD
+b2x1bW5zAENvbnZlcnNpb25zAFN5c3RlbS5Db2xsZWN0aW9ucwBDb25uZWN0aW9ucwBCdWZmZXJz
+AFJ1bnRpbWVIZWxwZXJzAE9wZXJhdG9ycwBGaW5pc2hPdXRwdXRzAGdldF9Sb3dzAENyZWF0ZU5l
+d091dHB1dFJvd3MAQ29uY2F0AG1fU3luY09iamVjdABNeVByb2plY3QAU2V0RW5kT2ZSb3dzZXQA
+RXhpdABVc2VyQ29tcG9uZW50AFBhcmVudENvbXBvbmVudABTY3JpcHRDb21wb25lbnQAZ2V0X0N1
+cnJlbnQATWljcm9zb2Z0LlNxbFNlcnZlci5UeFNjcmlwdABNaWNyb3NvZnQuU3FsU2VydmVyLlBp
+cGVsaW5lSG9zdABQcmltZU91dHB1dABNb3ZlTmV4dABtX0NvbnRleHQAR2V0VmFsdWVXaXRoQ29u
+dGV4dABTY3JpcHRDb21wb25lbnRFdmFsQ29udGV4dABnZXRfRXZhbHVhdG9yQ29udGV4dABEYXRh
+Um93AEFkZFJvdwBTQ183ZjJhYzhmNzRmNDc0YzEyYjQ5ZWMyYjA0NTA3NjdmYy5NeQBnZXRfQXNz
+ZW1ibHkAADFNAHkALgBSAGUAcwBvAHUAcgBjAGUAcwAuAE0AeQBSAGUAcwBvAHUAcgBjAGUAcwAA
+X1AAcgBvAHYAaQBkAGUAcgA9AE0AaQBjAHIAbwBzAG8AZgB0AC4AQQBDAEUALgBPAEwARQBEAEIA
+LgAxADIALgAwADsAIABEAGEAdABhACAAUwBvAHUAcgBjAGUAPQAAPzsARQB4AHQAZQBuAGQAZQBk
+ACAAUAByAG8AcABlAHIAdABpAGUAcwA9AEUAeABjAGUAbAAgADEAMgAuADAAABVUAEEAQgBMAEUA
+XwBOAEEATQBFAAArXwB4AGwAbgBtACMAXwBGAGkAbAB0AGUAcgBEAGEAdABhAGIAYQBzAGUAACVf
+AHgAbABuAG0AIwBQAHIAaQBuAHQAXwBUAGkAdABsAGUAcwAAF0MATwBMAFUATQBOAF8ATgBBAE0A
+RQAAE0QAQQBUAEEAXwBUAFkAUABFAACAm0kAcwBOAHUAbABsACAAcAByAG8AcABlAHIAdAB5ACAA
+YwBhAG4AbgBvAHQAIABiAGUAIABzAGUAdAAgAHQAbwAgAEYAYQBsAHMAZQAuACAAQQBzAHMAaQBn
+AG4AIABhACAAdgBhAGwAdQBlACAAdABvACAAdABoAGUAIABjAG8AbAB1AG0AbgAgAGkAbgBzAHQA
+ZQBhAGQALgAADU8AdQB0AHAAdQB0AAAjQwBvAG4AbgBlAGMAdABpAG8AbgBNAGEAbgBhAGcAZQBy
+AAAhRQB4AGMAZQBsAEYAaQBsAGUAVgBlAHIAcwBpAG8AbgAAI0UAeABjAGUAbABGAHUAbABsAEYA
+aQBsAGUATgBhAG0AZQAALMM99TX+mEew4IsbJSpyKAAEIAEBCAMgAAEFIAEBEREEIAEBDgQgAQEC
+BSACAQ4OBSABARFFByAEAQ4ODg4GFRI0ARIMBhUSNAESCAYVEjQBEmUGFRI0ARIwBCAAEwAHAAES
+bRGAtQUgABKAuQcgAgEOEoC5GQcLCAgODhKAiRKAiQ4SgI0SgJESgJESgJUDIAAOBgADDg4ODgQG
+EYDFCiACEoCJEYDFHRwFIAASgMkFIAASgJEDIAAcBCABHA4GAAMIDg4CAyAAAgsgAwESgJ0dCBKA
+oQUgAgEIHAMHAQIEBwIICAcAAggSgKEOBSABHQgIBSAAEoDdBSAAEoDhBiABEoDlDgUgABKAqQUg
+ABKA6QYgARKA7RwFAAASgPEGIAEcEoD1BAABDhwEAAEcHAQAAQEcBCABAhwDIAAIBAcBHgACHgAF
+EAEAHgAECgEeAAQHARMABhUSNAETAAcGFRJxARMABhUScQETAAITAAQKARMABSABARMACLd6XFYZ
+NOCJCLA/X38R1Qo6CImEXc2AgMyRBwYVEjQBEgwHBhUSNAESCAcGFRI0ARJlBwYVEjQBEjADBhJ5
+AwYSfQMGEiQDBhIoAwYSHAQGEoClAwYSLAIGHAMAAAEEAAASDAQAABIIBAAAEmUEAAASMAQAABJ5
+BAAAEn0FAAEBEn0EIAEBBw0gBAEIHQgdEoCdEoChBiABARKApQQAABIsBCAAEm0HEAEBHgAeAAcw
+AQEBEB4ABAgAEgwECAASCAQIABJlBAgAEjAECAASeQQIABJ9AygADgMoAAIDKAAHBSgAEoCpBAgA
+EiwEKAATAAgBAAgAAAAAAB4BAAEAVAIWV3JhcE5vbkV4Y2VwdGlvblRocm93cwEIAQACAAAAAAAo
+AQAjU0NfN2YyYWM4Zjc0ZjQ3NGMxMmI0OWVjMmIwNDUwNzY3ZmMAAAUBAAAAABYBABFDb3B5cmln
+aHQgQCAgMjAxOAAABQEAAQAAKQEAJDQzODQwNTQ2LWE2NWQtNDY0MC1hNTY1LTRkZDBkZjFkZDQy
+OAAADAEABzEuMC4wLjAAAEkBABouTkVURnJhbWV3b3JrLFZlcnNpb249djQuNQEAVA4URnJhbWV3
+b3JrRGlzcGxheU5hbWUSLk5FVCBGcmFtZXdvcmsgNC41BAEAAAAIAQABAAAAAAAYAQAKTXlUZW1w
+bGF0ZQgxMS4wLjAuMAAAYQEANFN5c3RlbS5XZWIuU2VydmljZXMuUHJvdG9jb2xzLlNvYXBIdHRw
+Q2xpZW50UHJvdG9jb2wSQ3JlYXRlX19JbnN0YW5jZV9fE0Rpc3Bvc2VfX0luc3RhbmNlX18AAAAQ
+AQALTXkuQ29tcHV0ZXIAABMBAA5NeS5BcHBsaWNhdGlvbgAADAEAB015LlVzZXIAABMBAA5NeS5X
+ZWJTZXJ2aWNlcwAAtAAAAM7K774BAAAAkQAAAGxTeXN0ZW0uUmVzb3VyY2VzLlJlc291cmNlUmVh
+ZGVyLCBtc2NvcmxpYiwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tl
+eVRva2VuPWI3N2E1YzU2MTkzNGUwODkjU3lzdGVtLlJlc291cmNlcy5SdW50aW1lUmVzb3VyY2VT
+ZXQCAAAAAAAAAAAAAABQQURQQURQtAAAAORHAAAAAAAAAAAAAP5HAAAAIAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAADwRwAAAAAAAAAAAAAAAF9Db3JEbGxNYWluAG1zY29yZWUuZGxsAAAAAAD/JQAgABAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAEAAAABgA
+AIAAAAAAAAAAAAAAAAAAAAEAAQAAADAAAIAAAAAAAAAAAAAAAAAAAAEAAAAAAEgAAABYYAAA7AMA
+AAAAAAAAAAAA7AM0AAAAVgBTAF8AVgBFAFIAUwBJAE8ATgBfAEkATgBGAE8AAAAAAL0E7/4AAAEA
+AAABAAAAAAAAAAEAAAAAAD8AAAAAAAAABAAAAAIAAAAAAAAAAAAAAAAAAABEAAAAAQBWAGEAcgBG
+AGkAbABlAEkAbgBmAG8AAAAAACQABAAAAFQAcgBhAG4AcwBsAGEAdABpAG8AbgAAAAAAAACwBEwD
+AAABAFMAdAByAGkAbgBnAEYAaQBsAGUASQBuAGYAbwAAACgDAAABADAAMAAwADAAMAA0AGIAMAAA
+ABoAAQABAEMAbwBtAG0AZQBuAHQAcwAAAAAAAAAiAAEAAQBDAG8AbQBwAGEAbgB5AE4AYQBtAGUA
+AAAAAAAAAABwACQAAQBGAGkAbABlAEQAZQBzAGMAcgBpAHAAdABpAG8AbgAAAAAAUwBDAF8ANwBm
+ADIAYQBjADgAZgA3ADQAZgA0ADcANABjADEAMgBiADQAOQBlAGMAMgBiADAANAA1ADAANwA2ADcA
+ZgBjAAAAMAAIAAEARgBpAGwAZQBWAGUAcgBzAGkAbwBuAAAAAAAxAC4AMAAuADAALgAwAAAAcAAo
+AAEASQBuAHQAZQByAG4AYQBsAE4AYQBtAGUAAABTAEMAXwA3AGYAMgBhAGMAOABmADcANABmADQA
+NwA0AGMAMQAyAGIANAA5AGUAYwAyAGIAMAA0ADUAMAA3ADYANwBmAGMALgBkAGwAbAAAAEgAEgAB
+AEwAZQBnAGEAbABDAG8AcAB5AHIAaQBnAGgAdAAAAEMAbwBwAHkAcgBpAGcAaAB0ACAAQAAgACAA
+MgAwADEAOAAAACoAAQABAEwAZQBnAGEAbABUAHIAYQBkAGUAbQBhAHIAawBzAAAAAAAAAAAAeAAo
+AAEATwByAGkAZwBpAG4AYQBsAEYAaQBsAGUAbgBhAG0AZQAAAFMAQwBfADcAZgAyAGEAYwA4AGYA
+NwA0AGYANAA3ADQAYwAxADIAYgA0ADkAZQBjADIAYgAwADQANQAwADcANgA3AGYAYwAuAGQAbABs
+AAAAaAAkAAEAUAByAG8AZAB1AGMAdABOAGEAbQBlAAAAAABTAEMAXwA3AGYAMgBhAGMAOABmADcA
+NABmADQANwA0AGMAMQAyAGIANAA5AGUAYwAyAGIAMAA0ADUAMAA3ADYANwBmAGMAAAA0AAgAAQBQ
+AHIAbwBkAHUAYwB0AFYAZQByAHMAaQBvAG4AAAAxAC4AMAAuADAALgAwAAAAOAAIAAEAQQBzAHMA
+ZQBtAGIAbAB5ACAAVgBlAHIAcwBpAG8AbgAAADEALgAwAC4AMAAuADAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAADAAAABA4AAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==]]></arrayElement>
+                      </arrayElements>
+                    </property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the Microsoft Visual Studio Tools for Applications project. Project names must be unique within a package."
+                      name="VSTAProjectName"
+                      typeConverter="NOTBROWSABLE">SC_7f2ac8f74f474c12b49ec2b0450767fc</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the programming language used by the script."
+                      name="ScriptLanguage"
+                      typeConverter="Microsoft.SqlServer.VSTAHosting.ScriptingLanguages">VisualBasic</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a comma-separated list of read-only variables."
+                      name="ReadOnlyVariables"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ScriptUIVariablePickerDlg">User::ExcelFileVersion,User::ExcelFullFileName</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a comma-separated list of read/write variables."
+                      name="ReadWriteVariables"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ScriptUIWriteableVariablePickerDlg"></property>
+                    <property
+                      dataType="System.String"
+                      description="List of breakpoints present on the script."
+                      isArray="true"
+                      name="BreakpointCollection"
+                      typeConverter="NOTBROWSABLE">
+                      <arrayElements
+                        arrayElementCount="0" />
+                    </property>
+                    <property
+                      dataType="System.String"
+                      description="Checksum to match component metedata against compiled codes."
+                      name="MetadataChecksum"
+                      typeConverter="NOTBROWSABLE">146fccf73d56e03f3720d70e92dd4236</property>
+                    <property
+                      dataType="System.String"
+                      description="Checksum to match component metedata against compiled codes."
+                      name="MetadataShaChecksum"
+                      typeConverter="NOTBROWSABLE">de6c7f805d72b95643b5e6cf4171e3d4d4f9e7cc</property>
+                    <property
+                      dataType="System.String"
+                      name="UserComponentTypeName">Microsoft.ScriptComponentHost</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Loop Container 1\Get Excel Metadata\Get Excel Metadata.Connections[ConnectionManager]"
+                      connectionManagerID="Package.ConnectionManagers[ExcelConnectionManager]"
+                      connectionManagerRefId="Package.ConnectionManagers[ExcelConnectionManager]"
+                      name="ConnectionManager" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Foreach Loop Container 1\Get Excel Metadata\Get Excel Metadata.Outputs[Output]"
+                      hasSideEffects="true"
+                      name="Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container 1\Get Excel Metadata\Get Excel Metadata.Outputs[Output].Columns[DATATYPE]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container 1\Get Excel Metadata\Get Excel Metadata.Outputs[Output].Columns[DATATYPE]"
+                          name="DATATYPE" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container 1\Get Excel Metadata\Get Excel Metadata.Outputs[Output].Columns[COLUMNNAME]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container 1\Get Excel Metadata\Get Excel Metadata.Outputs[Output].Columns[COLUMNNAME]"
+                          name="COLUMNNAME" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container 1\Get Excel Metadata\Get Excel Metadata.Outputs[Output].Columns[TABLENAME]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\Foreach Loop Container 1\Get Excel Metadata\Get Excel Metadata.Outputs[Output].Columns[TABLENAME]"
+                          name="TABLENAME" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container 1\Get Excel Metadata\Get Excel Metadata.Outputs[Output].Columns[EXCELFULLFILENAME]"
+                          dataType="wstr"
+                          length="256"
+                          lineageId="Package\Foreach Loop Container 1\Get Excel Metadata\Get Excel Metadata.Outputs[Output].Columns[EXCELFULLFILENAME]"
+                          name="EXCELFULLFILENAME" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container 1\Get Excel Metadata\Get Excel Metadata.Outputs[Output].Columns[COLUMNINDEX]"
+                          dataType="ui2"
+                          lineageId="Package\Foreach Loop Container 1\Get Excel Metadata\Get Excel Metadata.Outputs[Output].Columns[COLUMNINDEX]"
+                          name="COLUMNINDEX" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container 1\Get Excel Metadata\Get Excel Metadata.Outputs[Output].Columns[TABLEINDEX]"
+                          dataType="ui2"
+                          lineageId="Package\Foreach Loop Container 1\Get Excel Metadata\Get Excel Metadata.Outputs[Output].Columns[TABLEINDEX]"
+                          name="TABLEINDEX" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Foreach Loop Container 1\Get Excel Metadata\OLE DB Destination"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE DB Destination"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[QuickTab].[stg_ExcelMetadata]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">1</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Loop Container 1\Get Excel Metadata\OLE DB Destination.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[DatabaseOLEDB]"
+                      connectionManagerRefId="Package.ConnectionManagers[DatabaseOLEDB]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Foreach Loop Container 1\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Foreach Loop Container 1\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DATATYPE]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="DATATYPE"
+                          externalMetadataColumnId="Package\Foreach Loop Container 1\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DATATYPE]"
+                          lineageId="Package\Foreach Loop Container 1\Get Excel Metadata\Get Excel Metadata.Outputs[Output].Columns[DATATYPE]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container 1\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[COLUMNNAME]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="COLUMNNAME"
+                          externalMetadataColumnId="Package\Foreach Loop Container 1\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[COLUMNNAME]"
+                          lineageId="Package\Foreach Loop Container 1\Get Excel Metadata\Get Excel Metadata.Outputs[Output].Columns[COLUMNNAME]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container 1\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[TABLENAME]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="TABLENAME"
+                          externalMetadataColumnId="Package\Foreach Loop Container 1\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TABLENAME]"
+                          lineageId="Package\Foreach Loop Container 1\Get Excel Metadata\Get Excel Metadata.Outputs[Output].Columns[TABLENAME]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container 1\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[EXCELFULLFILENAME]"
+                          cachedDataType="wstr"
+                          cachedLength="256"
+                          cachedName="EXCELFULLFILENAME"
+                          externalMetadataColumnId="Package\Foreach Loop Container 1\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[EXCELFILEPATH]"
+                          lineageId="Package\Foreach Loop Container 1\Get Excel Metadata\Get Excel Metadata.Outputs[Output].Columns[EXCELFULLFILENAME]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container 1\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[TABLEINDEX]"
+                          cachedDataType="ui2"
+                          cachedName="TABLEINDEX"
+                          externalMetadataColumnId="Package\Foreach Loop Container 1\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TABLEINDEX]"
+                          lineageId="Package\Foreach Loop Container 1\Get Excel Metadata\Get Excel Metadata.Outputs[Output].Columns[TABLEINDEX]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container 1\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[COLUMNINDEX]"
+                          cachedDataType="ui2"
+                          cachedName="COLUMNINDEX"
+                          externalMetadataColumnId="Package\Foreach Loop Container 1\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[COLUMNINDEX]"
+                          lineageId="Package\Foreach Loop Container 1\Get Excel Metadata\Get Excel Metadata.Outputs[Output].Columns[COLUMNINDEX]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container 1\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[EXCELFILEPATH]"
+                          dataType="wstr"
+                          length="512"
+                          name="EXCELFILEPATH" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container 1\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TABLENAME]"
+                          dataType="wstr"
+                          length="512"
+                          name="TABLENAME" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container 1\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[COLUMNNAME]"
+                          dataType="wstr"
+                          length="512"
+                          name="COLUMNNAME" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container 1\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DATATYPE]"
+                          dataType="wstr"
+                          length="512"
+                          name="DATATYPE" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container 1\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TABLEINDEX]"
+                          dataType="i4"
+                          name="TABLEINDEX" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container 1\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[COLUMNINDEX]"
+                          dataType="i4"
+                          name="COLUMNINDEX" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Foreach Loop Container 1\Get Excel Metadata\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Foreach Loop Container 1\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container 1\Get Excel Metadata\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container 1\Get Excel Metadata\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container 1\Get Excel Metadata\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container 1\Get Excel Metadata\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Foreach Loop Container 1\Get Excel Metadata.Paths[Output]"
+                  endId="Package\Foreach Loop Container 1\Get Excel Metadata\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  name="Output"
+                  startId="Package\Foreach Loop Container 1\Get Excel Metadata\Get Excel Metadata.Outputs[Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container 1\Get File Extension"
+          DTS:CreationName="Microsoft.ExpressionTask"
+          DTS:Description="Expression Task"
+          DTS:DTSID="{edb78772-b57c-46c0-9862-efe0228cf677}"
+          DTS:ExecutableType="Microsoft.ExpressionTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Get File Extension"
+          DTS:TaskContact="Expression Task;Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="2">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <ExpressionTask
+              Expression="@[User::ExcelFileExtension] = REVERSE(SUBSTRING(REVERSE(@[User::ExcelFileName]), 1, FINDSTRING(REVERSE(@[User::ExcelFileName]), &quot;.&quot;, 1) ))" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container 1\Invalid File Extension"
+          DTS:CreationName="Microsoft.FileSystemTask"
+          DTS:Description="File System Task"
+          DTS:DTSID="{e203e39e-c8f4-456a-8ca1-a1f5ff4cddcd}"
+          DTS:ExecutableType="Microsoft.FileSystemTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Invalid File Extension"
+          DTS:TaskContact="File System Task;Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="2">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <FileSystemData
+              TaskOperationType="MoveFile"
+              TaskSourcePath="User::ExcelFullFileName"
+              TaskIsSourceVariable="True"
+              TaskDestinationPath="User::ExcelFailedProcessedPath"
+              TaskIsDestinationVariable="True" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container 1\Move Failed File"
+          DTS:CreationName="Microsoft.FileSystemTask"
+          DTS:Description="File System Task"
+          DTS:DTSID="{57aad5d0-36bd-42f8-ac61-817903585749}"
+          DTS:ExecutableType="Microsoft.FileSystemTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Move Failed File"
+          DTS:TaskContact="File System Task;Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="4">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <FileSystemData
+              TaskOperationType="MoveFile"
+              TaskSourcePath="User::ExcelFullFileName"
+              TaskIsSourceVariable="True"
+              TaskDestinationPath="User::ExcelFailedProcessedPath"
+              TaskIsDestinationVariable="True" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container 1\Move File"
+          DTS:CreationName="Microsoft.FileSystemTask"
+          DTS:Description="File System Task"
+          DTS:DTSID="{7059e3fb-0f23-493d-a175-5cd69de4a311}"
+          DTS:ExecutableType="Microsoft.FileSystemTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Move File"
+          DTS:TaskContact="File System Task;Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="2">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <FileSystemData
+              TaskOperationType="MoveFile"
+              TaskSourcePath="User::ExcelFullFileName"
+              TaskIsSourceVariable="True"
+              TaskDestinationPath="User::ExcelProcessedPath"
+              TaskIsDestinationVariable="True" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container 1\Script Task"
+          DTS:CreationName="Microsoft.ScriptTask"
+          DTS:Description="Script Task"
+          DTS:Disabled="True"
+          DTS:DTSID="{95167E5C-6CF8-4437-81B5-458B6BA6D7FE}"
+          DTS:ExecutableType="Microsoft.ScriptTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Script Task"
+          DTS:ThreadHint="3">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <ScriptProject
+              Name="ST_3fd45b9c8ea54f76ba1637b2a7cf477c"
+              VSTAMajorVersion="14"
+              VSTAMinorVersion="0"
+              Language="CSharp" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container 1\Truncate Staging Tables"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:Disabled="True"
+          DTS:DTSID="{408d6a78-c707-44a5-90cf-124fe65b5be7}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate Staging Tables"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="2">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{7E1864C1-09C4-4B00-A7CD-A57905981DB0}"
+              SQLTask:SqlStatementSource="TRUNCATE TABLE  QuickTab.stg_ExcelMetadata" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Foreach Loop Container 1.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{C04A8740-5C9D-4AB5-8202-FD10010AC2FD}"
+          DTS:EvalOp="1"
+          DTS:Expression="@[User::ExcelFileExtension] !=&quot;.xlsx&quot;"
+          DTS:From="Package\Foreach Loop Container 1\Get File Extension"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Foreach Loop Container 1\Invalid File Extension" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Foreach Loop Container 1.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{BDD46732-72E7-4707-8F75-4A8968EEA6FD}"
+          DTS:From="Package\Foreach Loop Container 1\Truncate Staging Tables"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\Foreach Loop Container 1\Get File Extension" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Foreach Loop Container 1.PrecedenceConstraints[Constraint 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{7D07FE2C-6616-4986-8F0E-835D4B85A677}"
+          DTS:EvalOp="1"
+          DTS:Expression="@[User::ExcelFileExtension] ==&quot;.xlsx&quot; || @[User::ExcelFileExtension] ==&quot;.xls&quot;"
+          DTS:From="Package\Foreach Loop Container 1\Get File Extension"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 2"
+          DTS:To="Package\Foreach Loop Container 1\Get Excel Metadata" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Foreach Loop Container 1.PrecedenceConstraints[Constraint 3]"
+          DTS:CreationName=""
+          DTS:DTSID="{B1AC5FE2-E735-4908-A2EE-01DFA713540A}"
+          DTS:From="Package\Foreach Loop Container 1\Get Excel Metadata"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 3"
+          DTS:To="Package\Foreach Loop Container 1\Move File" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Foreach Loop Container 1.PrecedenceConstraints[Constraint 4]"
+          DTS:CreationName=""
+          DTS:DTSID="{428B2BFC-DFD2-43FB-A28E-8D7B0A47C7BA}"
+          DTS:From="Package\Foreach Loop Container 1\Get Excel Metadata"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 4"
+          DTS:To="Package\Foreach Loop Container 1\Move Failed File"
+          DTS:Value="1" />
+      </DTS:PrecedenceConstraints>
+      <DTS:ForEachVariableMappings>
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{CEFBCA21-4466-45BE-A799-6C89616F9162}"
+          DTS:ObjectName="{CEFBCA21-4466-45BE-A799-6C89616F9162}"
+          DTS:ValueIndex="0"
+          DTS:VariableName="User::ExcelFileName" />
+      </DTS:ForEachVariableMappings>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="172,42"
+          Id="Package\Foreach Loop Container\Get Excel Metadata"
+          TopLeft="48,360" />
+        <NodeLayout
+          Size="167,42"
+          Id="Package\Foreach Loop Container\Get File Extension"
+          TopLeft="51,204" />
+        <NodeLayout
+          Size="169,42"
+          Id="Package\Foreach Loop Container\Get Next Excel File"
+          TopLeft="44,117" />
+        <NodeLayout
+          Size="156,42"
+          Id="Package\Foreach Loop Container\Move Failed File"
+          TopLeft="142,279" />
+        <NodeLayout
+          Size="125,42"
+          Id="Package\Foreach Loop Container\Move File"
+          TopLeft="45,425" />
+        <NodeLayout
+          Size="195,42"
+          Id="Package\Foreach Loop Container\Truncate Staging Tables"
+          TopLeft="31,18" />
+        <EdgeLayout
+          Id="Package\Foreach Loop Container.PrecedenceConstraints[Constraint]"
+          TopLeft="128.5,60">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,57"
+              Start="0,0"
+              End="0,49.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,49.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach Loop Container.PrecedenceConstraints[Constraint 1]"
+          TopLeft="131.5,159">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,45"
+              Start="0,0"
+              End="0,37.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,37.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach Loop Container.PrecedenceConstraints[Constraint 2]"
+          TopLeft="108,246">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="26,114"
+              Start="0,0"
+              End="26,106.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,42.2491103202847" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,42.2491103202847"
+                    Point2="0,46.2491103202847"
+                    Point3="4,46.2491103202847" />
+                  <mssgle:LineSegment
+                    End="22,46.2491103202847" />
+                  <mssgle:CubicBezierSegment
+                    Point1="22,46.2491103202847"
+                    Point2="26,46.2491103202847"
+                    Point3="26,50.2491103202847" />
+                  <mssgle:LineSegment
+                    End="26,106.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="5,51.2491103202847,16,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach Loop Container.PrecedenceConstraints[Constraint 3]"
+          TopLeft="161,246">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="59,33"
+              Start="0,0"
+              End="59,25.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,9.38790035587189" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,9.38790035587189"
+                    Point2="0,13.3879003558719"
+                    Point3="4,13.3879003558719" />
+                  <mssgle:LineSegment
+                    End="55,13.3879003558719" />
+                  <mssgle:CubicBezierSegment
+                    Point1="55,13.3879003558719"
+                    Point2="59,13.3879003558719"
+                    Point3="59,17.3879003558719" />
+                  <mssgle:LineSegment
+                    End="59,25.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="21.5,18.3879003558719,16,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach Loop Container.PrecedenceConstraints[Constraint 4]"
+          TopLeft="134,402">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-26.5,23"
+              Start="0,0"
+              End="-26.5,15.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,7.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,7.5"
+                    Point2="0,11.5"
+                    Point3="-4,11.5" />
+                  <mssgle:LineSegment
+                    End="-22.5,11.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-22.5,11.5"
+                    Point2="-26.5,11.5"
+                    Point3="-26.5,15.5" />
+                  <mssgle:LineSegment
+                    End="-26.5,15.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="488,524"
+          Size="488,567"
+          Id="Package\Foreach Loop Container"
+          TopLeft="20,30" />
+        <NodeLayout
+          Size="172,42"
+          Id="Package\Foreach Loop Container 1\Get Excel Metadata"
+          TopLeft="73,399" />
+        <NodeLayout
+          Size="167,42"
+          Id="Package\Foreach Loop Container 1\Get File Extension"
+          TopLeft="73,166" />
+        <NodeLayout
+          Size="181,42"
+          Id="Package\Foreach Loop Container 1\Invalid File Extension"
+          TopLeft="176,251" />
+        <NodeLayout
+          Size="156,42"
+          Id="Package\Foreach Loop Container 1\Move Failed File"
+          TopLeft="250,491" />
+        <NodeLayout
+          Size="125,42"
+          Id="Package\Foreach Loop Container 1\Move File"
+          TopLeft="82,508" />
+        <NodeLayout
+          Size="133,42"
+          Id="Package\Foreach Loop Container 1\Script Task"
+          TopLeft="287,103" />
+        <NodeLayout
+          Size="195,42"
+          Id="Package\Foreach Loop Container 1\Truncate Staging Tables"
+          TopLeft="66,19" />
+        <EdgeLayout
+          Id="Package\Foreach Loop Container 1.PrecedenceConstraints[Constraint]"
+          TopLeft="183,208">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="83.5,43"
+              Start="0,0"
+              End="83.5,35.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,13.4448398576512" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,13.4448398576512"
+                    Point2="0,17.4448398576512"
+                    Point3="4,17.4448398576512" />
+                  <mssgle:LineSegment
+                    End="79.5,17.4448398576512" />
+                  <mssgle:CubicBezierSegment
+                    Point1="79.5,17.4448398576512"
+                    Point2="83.5,17.4448398576512"
+                    Point3="83.5,21.4448398576512" />
+                  <mssgle:LineSegment
+                    End="83.5,35.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="33.75,22.4448398576512,16,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach Loop Container 1.PrecedenceConstraints[Constraint 1]"
+          TopLeft="160,61">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,105"
+              Start="0,0"
+              End="0,97.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,97.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach Loop Container 1.PrecedenceConstraints[Constraint 2]"
+          TopLeft="130,208">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="29,191"
+              Start="0,0"
+              End="29,183.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,73.4875444839858" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,73.4875444839858"
+                    Point2="0,77.4875444839858"
+                    Point3="4,77.4875444839858" />
+                  <mssgle:LineSegment
+                    End="25,77.4875444839858" />
+                  <mssgle:CubicBezierSegment
+                    Point1="25,77.4875444839858"
+                    Point2="29,77.4875444839858"
+                    Point3="29,81.4875444839858" />
+                  <mssgle:LineSegment
+                    End="29,183.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="6.5,82.4875444839858,16,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach Loop Container 1.PrecedenceConstraints[Constraint 3]"
+          TopLeft="131.666666666667,441">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="12.8333333333333,67"
+              Start="0,0"
+              End="12.8333333333333,59.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.1705069124424" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,23.1705069124424"
+                    Point2="0,27.1705069124424"
+                    Point3="4,27.1705069124424" />
+                  <mssgle:LineSegment
+                    End="8.83333333333334,27.1705069124424" />
+                  <mssgle:CubicBezierSegment
+                    Point1="8.83333333333334,27.1705069124424"
+                    Point2="12.8333333333333,27.1705069124424"
+                    Point3="12.8333333333333,31.1705069124424" />
+                  <mssgle:LineSegment
+                    End="12.8333333333333,59.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach Loop Container 1.PrecedenceConstraints[Constraint 4]"
+          TopLeft="186.333333333333,441">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="141.666666666667,50"
+              Start="0,0"
+              End="141.666666666667,42.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.2764976958525" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.2764976958525"
+                    Point2="0,20.2764976958525"
+                    Point3="4,20.2764976958525" />
+                  <mssgle:LineSegment
+                    End="137.666666666667,20.2764976958525" />
+                  <mssgle:CubicBezierSegment
+                    Point1="137.666666666667,20.2764976958525"
+                    Point2="141.666666666667,20.2764976958525"
+                    Point3="141.666666666667,24.2764976958525" />
+                  <mssgle:LineSegment
+                    End="141.666666666667,42.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="55.5919856770833,25.2764976958525,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="525,620"
+          Size="525,663"
+          Id="Package\Foreach Loop Container 1"
+          TopLeft="536,35" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Foreach Loop Container\Get Excel Metadata">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="173,42"
+          Id="Package\Foreach Loop Container\Get Excel Metadata\OLE DB Destination"
+          TopLeft="45,169" />
+        <NodeLayout
+          Size="172,42"
+          Id="Package\Foreach Loop Container\Get Excel Metadata\Get Excel Metadata"
+          TopLeft="41,28" />
+        <EdgeLayout
+          Id="Package\Foreach Loop Container\Get Excel Metadata.Paths[Output]"
+          TopLeft="129.25,70">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,99"
+              Start="0,0"
+              End="0,91.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,91.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Foreach Loop Container\Get Excel Metadata\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Foreach Loop Container 1\Get Excel Metadata">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="172,42"
+          Id="Package\Foreach Loop Container 1\Get Excel Metadata\Get Excel Metadata"
+          TopLeft="41,28" />
+        <NodeLayout
+          Size="173,42"
+          Id="Package\Foreach Loop Container 1\Get Excel Metadata\OLE DB Destination"
+          TopLeft="45,169" />
+        <EdgeLayout
+          Id="Package\Foreach Loop Container 1\Get Excel Metadata.Paths[Output]"
+          TopLeft="129.25,70">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,99"
+              Start="0,0"
+              End="0,91.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,91.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <DtsEventHandler
+    design-time-name="Package\Foreach Loop Container 1\Get Excel Metadata.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="156,42"
+          Id="Package\Foreach Loop Container 1\Get Excel Metadata.EventHandlers[OnError]\Move Failed File"
+          TopLeft="328,87" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <PipelineComponentMetadata
+    design-time-name="Package\Foreach Loop Container 1\Get Excel Metadata\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
